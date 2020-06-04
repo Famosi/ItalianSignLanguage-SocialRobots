@@ -1,0 +1,16 @@
+#VRML_SIM R2020a utf8
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.14318253121606941 0.9800332373470797 0.13796237331084754 1.508629947281191
+  position 1.205205104389382 0.6755305090406984 0.05564025683429506
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Nao {
+  controller "arms_move"
+}
+CircleArena {
+}
