@@ -1,17 +1,12 @@
 {
   "pensare": [
     {
-      "location": "testa",
-      "configuration": "mano_chiusa",
+      "location": "head",
+      "configuration": "close_hand",
       "orientation": 0,
-      "movement": "circolare"
+      "movement": ["shoulder_in_out"]
     },
-    {
-      "location": "testa",
-      "configuration": "mano_chiusa",
-      "orientation": 0,
-      "movement": "circolare"
-    }
+    null
   ],
   "godere": [
     {

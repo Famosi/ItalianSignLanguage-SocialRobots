@@ -1,4 +1,5 @@
 from location import Location
+from movement import Movement
 
 
 class Sign:
@@ -9,20 +10,11 @@ class Sign:
         self.configuration = configuration
         self.orientation = orientation
         self.movement = movement
-        self.actuators_location = self.get_actuators_location()
 
     def perform_sign(self):
-        Location(self.location, self.actuators_location)
+        Location(self.robot, self.location, self.l_r)
         # Configuration(self.config).setConfiguration()
         # Orientation(self.orientation).setOrientation()
-        # Movement(self.mov).setMovement()
-
-    def get_actuators_location(self):
-        if self.l_r == 'sx':
-            return [1, self.robot.LShoulderRoll, self.robot.LShoulderPitch, self.robot.LElbowRoll, self.robot.LElbowYaw]
-        elif self.l_r == 'dx':
-            return [-1, self.robot.RShoulderRoll, self.robot.RShoulderPitch, self.robot.RElbowRoll, self.robot.RElbowYaw]
-
-
+        Movement(self.robot, self.movement, self.l_r)
 
 

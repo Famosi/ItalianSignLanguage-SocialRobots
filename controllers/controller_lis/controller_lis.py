@@ -16,36 +16,17 @@
    This demonstrates how to access sensors and actuators"""
 import sys
 sys.path.append('../../modules')
+sys.path.append('../../modules/location')
+
 import json
 from controller import Robot, Keyboard, Motion
 from time import sleep
 from location import Location
 from sign import Sign
-from utils import definitions_path
 
 
 class Nao(Robot):
     PHALANX_MAX = 8
-
-    # load motion files
-    def loadMotionFiles(self):
-        self.handWave = Motion('/Applications/Webots.app/projects/robots/softbank/nao/motions/HandWave.motion')
-        self.forwards = Motion('/Applications/Webots.app/projects/robots/softbank/nao/motions/Forwards50.motion')
-        self.backwards = Motion('/Applications/Webots.app/projects/robots/softbank/nao/motions/Backwards.motion')
-        self.sideStepLeft = Motion('/Applications/Webots.app/projects/robots/softbank/nao/motions/SideStepLeft.motion')
-        self.sideStepRight = Motion(
-            '/Applications/Webots.app/projects/robots/softbank/nao/motions/SideStepRight.motion')
-        self.turnLeft60 = Motion('/Applications/Webots.app/projects/robots/softbank/nao/motions/TurnLeft60.motion')
-        self.turnRight60 = Motion('/Applications/Webots.app/projects/robots/softbank/nao/motions/TurnRight60.motion')
-
-    def startMotion(self, motion):
-        # interrupt current motion
-        if self.currentlyPlaying:
-            self.currentlyPlaying.stop()
-
-        # start new motion
-        motion.play()
-        self.currentlyPlaying = motion
 
     def setAllLedsColor(self, rgb):
         # these leds take RGB values
@@ -58,7 +39,6 @@ class Nao(Robot):
         self.leds[6].set(rgb & 0xFF)
 
     def setHandsAngle(self, angleList):
-
         # for i in range(0, self.PHALANX_MAX):
         #    clampedAngle = angle
         #    if clampedAngle > self.maxPhalanxMotorPosition[i]:
@@ -72,14 +52,9 @@ class Nao(Robot):
         #        self.lphalanx[i].setPosition(clampedAngle)
 
         # @Simone
-        for i in range(0, self.PHALANX_MAX):
-            self.lphalanx[i].setPosition(angleList[i])
-
-    def setArmsAngle(self, angleShPitch, angleShRoll, angleElRoll, angleElYaw):
-        self.LShoulderPitch.setPosition(angleShPitch)
-        self.LShoulderRoll.setPosition(angleShRoll)
-        self.LElbowRoll.setPosition(angleElRoll)
-        self.LElbowYaw.setPosition(angleElYaw)
+        # for i in range(0, self.PHALANX_MAX):
+        #     self.lphalanx[i].setPosition(angleList[i])
+        pass
 
     def printHelp(self):
         print('----------nao_demo_python----------')
@@ -104,52 +79,6 @@ class Nao(Robot):
     def findAndEnableDevices(self):
         # get the time step of the current world.
         self.timeStep = int(self.getBasicTimeStep())
-
-        # camera
-        self.cameraTop = self.getCamera("CameraTop")
-        self.cameraBottom = self.getCamera("CameraBottom")
-        self.cameraTop.enable(4 * self.timeStep)
-        self.cameraBottom.enable(4 * self.timeStep)
-
-        # accelerometer
-        self.accelerometer = self.getAccelerometer('accelerometer')
-        self.accelerometer.enable(4 * self.timeStep)
-
-        # gyro
-        self.gyro = self.getGyro('gyro')
-        self.gyro.enable(4 * self.timeStep)
-
-        # gps
-        self.gps = self.getGPS('gps')
-        self.gps.enable(4 * self.timeStep)
-
-        # inertial unit
-        self.inertialUnit = self.getInertialUnit('inertial unit')
-        self.inertialUnit.enable(self.timeStep)
-
-        # ultrasound sensors
-        self.us = []
-        usNames = ['Sonar/Left', 'Sonar/Right']
-        for i in range(0, len(usNames)):
-            self.us.append(self.getDistanceSensor(usNames[i]))
-            self.us[i].enable(self.timeStep)
-
-        # foot sensors
-        self.fsr = []
-        fsrNames = ['LFsr', 'RFsr']
-        for i in range(0, len(fsrNames)):
-            self.fsr.append(self.getTouchSensor(fsrNames[i]))
-            self.fsr[i].enable(self.timeStep)
-
-        # foot bumpers
-        self.lfootlbumper = self.getTouchSensor('LFoot/Bumper/Left')
-        self.lfootrbumper = self.getTouchSensor('LFoot/Bumper/Right')
-        self.rfootlbumper = self.getTouchSensor('RFoot/Bumper/Left')
-        self.rfootrbumper = self.getTouchSensor('RFoot/Bumper/Right')
-        self.lfootlbumper.enable(self.timeStep)
-        self.lfootrbumper.enable(self.timeStep)
-        self.rfootlbumper.enable(self.timeStep)
-        self.rfootrbumper.enable(self.timeStep)
 
         # there are 7 controlable LED groups in Webots
         self.leds = []
@@ -193,18 +122,17 @@ class Nao(Robot):
         self.LWristYaw = self.getMotor("LWristYaw")
         self.RWristYaw = self.getMotor("RWristYaw")
 
-
         # keyboard
         self.keyboard = self.getKeyboard()
         self.keyboard.enable(10 * self.timeStep)
 
     def execute_sign(self, data):
-        # if SX
+        # if DX
         if data[0] is not None:
             dx = data[0]
             Sign(
                 self,
-                'dx',
+                'R',
                 dx['location'],
                 dx['configuration'],
                 dx['orientation'],
@@ -215,7 +143,7 @@ class Nao(Robot):
             sx = data[1]
             Sign(
                 self,
-                'sx',
+                'L',
                 sx['location'],
                 sx['configuration'],
                 sx['orientation'],
@@ -224,49 +152,21 @@ class Nao(Robot):
 
     def __init__(self):
         Robot.__init__(self)
-        self.currentlyPlaying = False
-
         # initialize stuff
         self.findAndEnableDevices()
-        self.loadMotionFiles()
-        self.printHelp()
 
     def run(self):
-        # Hello!
-        self.handWave.setLoop(True)
-        self.handWave.play()
-
-        # until a key is pressed
-        key = -1
-        while robot.step(self.timeStep) != -1:
-            key = self.keyboard.getKey()
-            if key > 0:
-                break
-
-        self.handWave.setLoop(False)
 
         # Opening JSON file
-        f = open(definitions_path + 'sign_dictionary.json')
+        f = open('/Users/Famosi/Desktop/SocialRobot-ISL/definitions/sign_dictionary.json')
 
-        # returns JSON object as a dictionary
+        # returns JSON object
+        # as a dictionary
         data = json.load(f)
 
         # Main loop
         while True:
             key = self.keyboard.getKey()
-
-            # if key == Keyboard.LEFT:
-            #     self.startMotion(self.sideStepLeft)
-            # elif key == Keyboard.RIGHT:
-            #     self.startMotion(self.sideStepRight)
-            # elif key == Keyboard.UP:
-            #     self.startMotion(self.forwards)
-            # elif key == Keyboard.DOWN:
-            #     self.startMotion(self.backwards)
-            # elif key == Keyboard.LEFT | Keyboard.SHIFT:
-            #     self.startMotion(self.turnLeft60)
-            # elif key == Keyboard.RIGHT | Keyboard.SHIFT:
-            #     self.startMotion(self.turnRight60)
 
             if key == ord('M'):
                 input = "pensare"

@@ -4,21 +4,25 @@
  - elbowYaw
  - elbowRoll
 """
+
+from controller import Robot, Keyboard, Motion
+from time import sleep
 import sys
 sys.path.append('../../')
-from utils import get_angles, definitions_path
-
-path_locations = definitions_path + 'locations.json'
+from utils import path_motions_location
 
 
 class Location:
-    def __init__(self, location, actuators):
-        self.location = get_angles(path_locations, location)
-        self.actuators = actuators
+    def __init__(self, robot, location, l_r):
+        self.robot = robot
+        self.location = location
+        self.l_r = l_r
+        self.motion = Motion(path_motions_location + self.location + '_' + self.l_r + '.motion')
         self.set_location()
 
     def set_location(self):
-        l_r = self.actuators[0]
-        for idx, actuator in enumerate(self.actuators[1:]):
-            actuator.setPosition(l_r * self.location[idx])
+        self.motion.play()
+        while not self.motion.isOver():
+            self.robot.step(self.robot.timeStep)
+
 
