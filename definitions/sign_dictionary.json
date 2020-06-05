@@ -1,0 +1,31 @@
+{
+  "pensare": [
+    {
+      "location": "testa",
+      "configuration": "mano_chiusa",
+      "orientation": 0,
+      "movement": "circolare"
+    },
+    {
+      "location": "testa",
+      "configuration": "mano_chiusa",
+      "orientation": 0,
+      "movement": "circolare"
+    }
+  ],
+  "godere": [
+    {
+      "location": "testa",
+      "configuration": "mano_chiusa",
+      "orientation": 0,
+      "movement": "circolare"
+    },
+    {
+      "location": "testa",
+      "configuration": "mano_chiusa",
+      "orientation": 0,
+      "movement": "circolare"
+    }
+  ]
+}
+
