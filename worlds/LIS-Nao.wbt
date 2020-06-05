@@ -10,7 +10,7 @@ TexturedBackground {
 TexturedBackgroundLight {
 }
 Nao {
-  controller "arms_move"
+  controller "controller_lis"
 }
 CircleArena {
 }
