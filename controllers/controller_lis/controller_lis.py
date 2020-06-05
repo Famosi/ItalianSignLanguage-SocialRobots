@@ -14,9 +14,14 @@
 
 """Example of Python controller for Nao robot.
    This demonstrates how to access sensors and actuators"""
-
+import sys
+sys.path.append('../../modules')
+import json
 from controller import Robot, Keyboard, Motion
 from time import sleep
+from location import Location
+from sign import Sign
+from utils import definitions_path
 
 
 class Nao(Robot):
@@ -41,120 +46,6 @@ class Nao(Robot):
         # start new motion
         motion.play()
         self.currentlyPlaying = motion
-
-    # the accelerometer axes are oriented as on the real robot
-    # however the sign of the returned values may be opposite
-    def printAcceleration(self):
-        acc = self.accelerometer.getValues()
-        print('----------accelerometer----------')
-        print('acceleration: [ x y z ] = [%f %f %f]' % (acc[0], acc[1], acc[2]))
-
-    # the gyro axes are oriented as on the real robot
-    # however the sign of the returned values may be opposite
-    def printGyro(self):
-        vel = self.gyro.getValues()
-        print('----------gyro----------')
-        # z value is meaningless due to the orientation of the Gyro
-        print('angular velocity: [ x y ] = [%f %f]' % (vel[0], vel[1]))
-
-    def printGps(self):
-        p = self.gps.getValues()
-        print('----------gps----------')
-        print('position: [ x y z ] = [%f %f %f]' % (p[0], p[1], p[2]))
-
-    # the InertialUnit roll/pitch angles are equal to naoqi's AngleX/AngleY
-    def printInertialUnit(self):
-        rpy = self.inertialUnit.getRollPitchYaw()
-        print('----------inertial unit----------')
-        print('roll/pitch/yaw: [%f %f %f]' % (rpy[0], rpy[1], rpy[2]))
-
-    def printFootSensors(self):
-        fsv = []  # force sensor values
-
-        fsv.append(self.fsr[0].getValues())
-        fsv.append(self.fsr[1].getValues())
-
-        l = []
-        r = []
-
-        newtonsLeft = 0
-        newtonsRight = 0
-
-        # The coefficients were calibrated against the real
-        # robot so as to obtain realistic sensor values.
-        l.append(fsv[0][2] / 3.4 + 1.5 * fsv[0][0] + 1.15 * fsv[0][1])  # Left Foot Front Left
-        l.append(fsv[0][2] / 3.4 + 1.5 * fsv[0][0] - 1.15 * fsv[0][1])  # Left Foot Front Right
-        l.append(fsv[0][2] / 3.4 - 1.5 * fsv[0][0] - 1.15 * fsv[0][1])  # Left Foot Rear Right
-        l.append(fsv[0][2] / 3.4 - 1.5 * fsv[0][0] + 1.15 * fsv[0][1])  # Left Foot Rear Left
-
-        r.append(fsv[1][2] / 3.4 + 1.5 * fsv[1][0] + 1.15 * fsv[1][1])  # Right Foot Front Left
-        r.append(fsv[1][2] / 3.4 + 1.5 * fsv[1][0] - 1.15 * fsv[1][1])  # Right Foot Front Right
-        r.append(fsv[1][2] / 3.4 - 1.5 * fsv[1][0] - 1.15 * fsv[1][1])  # Right Foot Rear Right
-        r.append(fsv[1][2] / 3.4 - 1.5 * fsv[1][0] + 1.15 * fsv[1][1])  # Right Foot Rear Left
-
-        for i in range(0, len(l)):
-            l[i] = max(min(l[i], 25), 0)
-            r[i] = max(min(r[i], 25), 0)
-            newtonsLeft += l[i]
-            newtonsRight += r[i]
-
-        print('----------foot sensors----------')
-        print('+ left ---- right +')
-        print('+-------+ +-------+')
-        print('|' + str(round(l[0], 1)) +
-              '  ' + str(round(l[1], 1)) +
-              '| |' + str(round(r[0], 1)) +
-              '  ' + str(round(r[1], 1)) +
-              '|  front')
-        print('| ----- | | ----- |')
-        print('|' + str(round(l[3], 1)) +
-              '  ' + str(round(l[2], 1)) +
-              '| |' + str(round(r[3], 1)) +
-              '  ' + str(round(r[2], 1)) +
-              '|  back')
-        print('+-------+ +-------+')
-        print('total: %f Newtons, %f kilograms'
-              % ((newtonsLeft + newtonsRight), ((newtonsLeft + newtonsRight) / 9.81)))
-
-    def printFootBumpers(self):
-        ll = self.lfootlbumper.getValue()
-        lr = self.lfootrbumper.getValue()
-        rl = self.rfootlbumper.getValue()
-        rr = self.rfootrbumper.getValue()
-        print('----------foot bumpers----------')
-        print('+ left ------ right +')
-        print('+--------+ +--------+')
-        print('|' + str(ll) + '  ' + str(lr) + '| |' + str(rl) + '  ' + str(rr) + '|')
-        print('|        | |        |')
-        print('|        | |        |')
-        print('+--------+ +--------+')
-
-    def printUltrasoundSensors(self):
-        dist = []
-        for i in range(0, len(self.us)):
-            dist.append(self.us[i].getValue())
-
-        print('-----ultrasound sensors-----')
-        print('left: %f m, right %f m' % (dist[0], dist[1]))
-
-    def printCameraImage(self, camera):
-        scaled = 2  # defines by which factor the image is subsampled
-        width = camera.getWidth()
-        height = camera.getHeight()
-
-        # read rgb pixel values from the camera
-        image = camera.getImage()
-
-        print('----------camera image (gray levels)---------')
-        print('original resolution: %d x %d, scaled to %d x %f'
-              % (width, height, width / scaled, height / scaled))
-
-        for y in range(0, height // scaled):
-            line = ''
-            for x in range(0, width // scaled):
-                gray = camera.imageGetGray(image, width, x * scaled, y * scaled) * 9 / 255  # rescale between 0 and 9
-                line = line + str(int(gray))
-            print(line)
 
     def setAllLedsColor(self, rgb):
         # these leds take RGB values
@@ -184,12 +75,11 @@ class Nao(Robot):
         for i in range(0, self.PHALANX_MAX):
             self.lphalanx[i].setPosition(angleList[i])
 
-    def setArmsAngle(self, angleShPitch, angleShRoll, angleElRoll, angleElYaw, angleWrYaw):
+    def setArmsAngle(self, angleShPitch, angleShRoll, angleElRoll, angleElYaw):
         self.LShoulderPitch.setPosition(angleShPitch)
         self.LShoulderRoll.setPosition(angleShRoll)
         self.LElbowRoll.setPosition(angleElRoll)
         self.LElbowYaw.setPosition(angleElYaw)
-        self.LWristYaw.setPosition(angleWrYaw)
 
     def printHelp(self):
         print('----------nao_demo_python----------')
@@ -286,18 +176,51 @@ class Nao(Robot):
             self.maxPhalanxMotorPosition.append(self.rphalanx[i].getMaxPosition())
             self.minPhalanxMotorPosition.append(self.rphalanx[i].getMinPosition())
 
-        # shoulder pitch motors
+        # Shoulder motors
         self.RShoulderPitch = self.getMotor("RShoulderPitch")
         self.LShoulderPitch = self.getMotor("LShoulderPitch")
-
+        self.RShoulderRoll = self.getMotor("RShoulderRoll")
         self.LShoulderRoll = self.getMotor("LShoulderRoll")
+
+        # Elbow motors
         self.LElbowRoll = self.getMotor("LElbowRoll")
+        self.RElbowRoll = self.getMotor("RElbowRoll")
         self.LElbowYaw = self.getMotor("LElbowYaw")
+        self.RElbowYaw = self.getMotor("RElbowYaw")
+
+
+        # Wirst motors
         self.LWristYaw = self.getMotor("LWristYaw")
+        self.RWristYaw = self.getMotor("RWristYaw")
+
 
         # keyboard
         self.keyboard = self.getKeyboard()
         self.keyboard.enable(10 * self.timeStep)
+
+    def execute_sign(self, data):
+        # if SX
+        if data[0] is not None:
+            dx = data[0]
+            Sign(
+                self,
+                'dx',
+                dx['location'],
+                dx['configuration'],
+                dx['orientation'],
+                dx['movement']
+            ).perform_sign()
+        # if SX
+        if data[1] is not None:
+            sx = data[1]
+            Sign(
+                self,
+                'sx',
+                sx['location'],
+                sx['configuration'],
+                sx['orientation'],
+                sx['movement']
+            ).perform_sign()
 
     def __init__(self):
         Robot.__init__(self)
@@ -309,6 +232,7 @@ class Nao(Robot):
         self.printHelp()
 
     def run(self):
+        # Hello!
         self.handWave.setLoop(True)
         self.handWave.play()
 
@@ -321,34 +245,36 @@ class Nao(Robot):
 
         self.handWave.setLoop(False)
 
+        # Opening JSON file
+        f = open(definitions_path + 'sign_dictionary.json')
+
+        # returns JSON object as a dictionary
+        data = json.load(f)
+
+        # Main loop
         while True:
             key = self.keyboard.getKey()
 
-            if key == Keyboard.LEFT:
-                self.startMotion(self.sideStepLeft)
-            elif key == Keyboard.RIGHT:
-                self.startMotion(self.sideStepRight)
-            elif key == Keyboard.UP:
-                self.startMotion(self.forwards)
-            elif key == Keyboard.DOWN:
-                self.startMotion(self.backwards)
-            elif key == Keyboard.LEFT | Keyboard.SHIFT:
-                self.startMotion(self.turnLeft60)
-            elif key == Keyboard.RIGHT | Keyboard.SHIFT:
-                self.startMotion(self.turnRight60)
-            elif key == ord('M'):
-                self.setArmsAngle(0.5, -0.31, -1.54, -1.0, 0.4)
-                self.setHandsAngle([1., 1., 1., 1., 0.5, 0., 1., 0.])
-            elif key == ord('B') | Keyboard.SHIFT:
-                self.setHandsAngle([1., 1., 1., 0., 0.5, 0., 1., 0.])
-            elif key == ord('B'):
-                self.setHandsAngle([1., 1., 1., 1., 0.5, 0., 1., 0.])
-            elif key == ord('C'):
-                self.setHandsAngle(0.0)
-            elif key == ord('H'):
-                self.printHelp()
+            # if key == Keyboard.LEFT:
+            #     self.startMotion(self.sideStepLeft)
+            # elif key == Keyboard.RIGHT:
+            #     self.startMotion(self.sideStepRight)
+            # elif key == Keyboard.UP:
+            #     self.startMotion(self.forwards)
+            # elif key == Keyboard.DOWN:
+            #     self.startMotion(self.backwards)
+            # elif key == Keyboard.LEFT | Keyboard.SHIFT:
+            #     self.startMotion(self.turnLeft60)
+            # elif key == Keyboard.RIGHT | Keyboard.SHIFT:
+            #     self.startMotion(self.turnRight60)
+
+            if key == ord('M'):
+                input = "pensare"
+                self.execute_sign(data[input])
 
             if robot.step(self.timeStep) == -1:
+                # Closing file
+                f.close()
                 break
 
 
