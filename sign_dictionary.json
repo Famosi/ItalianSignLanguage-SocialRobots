@@ -8,6 +8,15 @@
     },
     null
   ],
+  "conoscere": [
+    {
+      "location": "head",
+      "configuration": "open_hand",
+      "orientation": 0,
+      "movement": ["open_close_hand"]
+    },
+    null
+  ],
   "invidia": [
     {
       "location": "chest",

@@ -168,8 +168,16 @@ class Nao(Robot):
         while True:
             key = self.keyboard.getKey()
 
-            if key == ord('M'):
+            if key == ord('P'):
                 input = "pensare"
+                self.execute_sign(data[input])
+
+            if key == ord('I'):
+                input = "invidia"
+                self.execute_sign(data[input])
+
+            if key == ord('C'):
+                input = "conoscere"
                 self.execute_sign(data[input])
 
             if robot.step(self.timeStep) == -1:
