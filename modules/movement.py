@@ -10,6 +10,7 @@ class Movement:
         self.configurations = configurations
         self.l_r = l_r
         self.motions = self.get_motions()
+        self.rest_position = Motion(path_motions_movement + 'rest_position.motion')
         self.set_movement()
 
     def get_motions(self):
@@ -23,9 +24,13 @@ class Movement:
     def set_movement(self):
         for _ in range(4):
             for motion in self.motions:
-                motion.play()
-                while not motion.isOver():
-                    self.robot.step(self.robot.timeStep)
+                self.play_movement(motion)
+        self.play_movement(self.rest_position)
+
+    def play_movement(self, motion):
+        motion.play()
+        while not motion.isOver():
+            self.robot.step(self.robot.timeStep)
 
 
 
