@@ -1,10 +1,3 @@
-"""
- - shoulderPitch
- - shoulderRoll
- - elbowYaw
- - elbowRoll
-"""
-
 from controller import Robot, Keyboard, Motion
 from time import sleep
 import sys

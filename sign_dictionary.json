@@ -1,0 +1,21 @@
+{
+  "pensare": [
+    {
+      "location": "head",
+      "configuration": "close_hand",
+      "orientation": 0,
+      "movement": ["shoulder_elbow_circular"]
+    },
+    null
+  ],
+  "invidia": [
+    {
+      "location": "chest",
+      "configuration": "semi_close_hand",
+      "orientation": 0,
+      "movement": ["shoulder_elbow_circular"]
+    },
+    null
+  ]
+}
+

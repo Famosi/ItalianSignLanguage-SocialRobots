@@ -17,7 +17,7 @@ class Movement:
         motions = []
         for configuration in self.configurations:
             motions.append(
-                Motion(path_motions_movement + configuration + '.motion')
+                Motion(path_motions_movement + configuration + '_' + self.l_r + '.motion')
             )
         return motions
 

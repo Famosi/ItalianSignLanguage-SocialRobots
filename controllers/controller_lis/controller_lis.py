@@ -158,7 +158,7 @@ class Nao(Robot):
     def run(self):
 
         # Opening JSON file
-        f = open('/Users/Famosi/Desktop/SocialRobot-ISL/definitions/sign_dictionary.json')
+        f = open('/Users/Famosi/Desktop/SocialRobot-ISL/sign_dictionary.json')
 
         # returns JSON object
         # as a dictionary
@@ -179,7 +179,7 @@ class Nao(Robot):
 
 
 # # READ MOTION FILE ?
-# f = open('/Users/Famosi/Desktop/SocialRobot-ISL/motions/movement/shoulder_in_out.motion')
+# f = open('/Users/Famosi/Desktop/SocialRobot-ISL/motions/movement/shoulder_in_out_R.motion')
 # for raw in f:
 #     n = raw[16:].strip()
 #     print(n)
