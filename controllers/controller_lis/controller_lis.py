@@ -16,12 +16,9 @@
    This demonstrates how to access sensors and actuators"""
 import sys
 sys.path.append('../../modules')
-sys.path.append('../../modules/location')
 
 import json
 from controller import Robot, Keyboard, Motion
-from time import sleep
-from location import Location
 from sign import Sign
 import utils as path
 
@@ -117,7 +114,7 @@ class Nao(Robot):
                 self,
                 'L_R',
                 [dx['location'], sx['location']],
-                [dx['configuration'], sx['configuraion']],
+                [dx['configuration'], sx['configuration']],
                 [dx['orientation'], sx['orientation']],
                 [dx['movement'], sx['movement']]
             ).perform_sign()
@@ -130,7 +127,7 @@ class Nao(Robot):
                 [dx['location']],
                 [dx['configuration']],
                 [dx['orientation']],
-                [dx['movement']]
+                dx['movement']
             ).perform_sign()
         # if SX
         elif data[1] is not None:
@@ -141,7 +138,7 @@ class Nao(Robot):
                 [sx['location']],
                 [sx['configuration']],
                 [sx['orientation']],
-                [sx['movement']]
+                sx['movement']
             ).perform_sign()
 
     def __init__(self):

@@ -4,7 +4,7 @@
       "location": "head",
       "configuration": "beak",
       "orientation": 0,
-      "movement": ["shoulder_elbow_circular"]
+      "movement": ["shoulder_elbow_circular", "open_close_hand"]
     },
     null
   ],
