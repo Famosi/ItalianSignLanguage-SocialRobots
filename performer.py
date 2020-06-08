@@ -1,9 +1,8 @@
 import sys
 from controller import Motion
-sys.path.append('../../')
 
 
-class Module:
+class Performer:
     def __init__(self, path_module, robot, s_d, module, l_r):
         self.path = path_module
         self.robot = robot
@@ -14,16 +13,16 @@ class Module:
         self.perform()
 
     def get_motions(self):
-        if self.s_d == "dynamic":
-            return self.get_dynamic_motions()
-        else:
+        if self.s_d == "static":
             return self.get_static_motions()
+        else:
+            return self.get_dynamic_motions()
 
     def perform(self):
-        if self.s_d == "dynamic":
-            self.perform_dynamic()
-        else:
+        if self.s_d == "static":
             self.perform_static()
+        else:
+            self.perform_dynamic()
 
     def get_static_motions(self):
         if self.l_r == "L_R":
@@ -90,4 +89,3 @@ class Module:
         motion.play()
         while not motion.isOver():
             self.robot.step(self.robot.timeStep)
-

@@ -15,12 +15,13 @@
 """Example of Python controller for Nao robot.
    This demonstrates how to access sensors and actuators"""
 import sys
-sys.path.append('../../modules')
+sys.path.append('../../')
 
 import json
 from controller import Robot, Keyboard, Motion
 from sign import Sign
 import utils as path
+
 
 class Nao(Robot):
     PHALANX_MAX = 8

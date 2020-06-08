@@ -11,16 +11,16 @@
   "conoscere": [
     {
       "location": "head",
-      "configuration": "open_hand",
+      "configuration": "beak",
       "orientation": 0,
-      "movement": ["open_close_hand"]
+      "movement": ["hand_open_close"]
     },
     null
   ],
   "invidia": [
     {
       "location": "chest",
-      "configuration": "semi_close_hand",
+      "configuration": "scratch",
       "orientation": 0,
       "movement": ["shoulder_elbow_circular"]
     },
