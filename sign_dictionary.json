@@ -2,7 +2,7 @@
   "pensare": [
     {
       "location": "head",
-      "configuration": "close_hand",
+      "configuration": "beak",
       "orientation": 0,
       "movement": ["shoulder_elbow_circular"]
     },

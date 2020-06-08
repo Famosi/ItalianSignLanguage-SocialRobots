@@ -38,24 +38,6 @@ class Nao(Robot):
         self.leds[5].set(rgb & 0xFF)
         self.leds[6].set(rgb & 0xFF)
 
-    def setHandsAngle(self, angleList):
-        # for i in range(0, self.PHALANX_MAX):
-        #    clampedAngle = angle
-        #    if clampedAngle > self.maxPhalanxMotorPosition[i]:
-        #        clampedAngle = self.maxPhalanxMotorPosition[i]
-        #   elif clampedAngle < self.minPhalanxMotorPosition[i]:
-        #        clampedAngle = self.minPhalanxMotorPosition[i]
-
-        #    if len(self.rphalanx) > i and self.rphalanx[i] is not None:
-        #        self.rphalanx[i].setPosition(clampedAngle)
-        #    if len(self.lphalanx) > i and self.lphalanx[i] is not None:
-        #        self.lphalanx[i].setPosition(clampedAngle)
-
-        # @Simone
-        # for i in range(0, self.PHALANX_MAX):
-        #     self.lphalanx[i].setPosition(angleList[i])
-        pass
-
     def printHelp(self):
         print('----------nao_demo_python----------')
         print('Use the keyboard to control the robots (one at a time)')
