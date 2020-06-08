@@ -117,8 +117,8 @@ class Nao(Robot):
                 self,
                 'L_R',
                 [dx['location'], sx['location']],
-                [dx['configuration']],
-                dx['orientation'],
+                [dx['configuration'], sx['configuraion']],
+                [dx['orientation'], sx['orientation']],
                 [dx['movement'], sx['movement']]
             ).perform_sign()
         # if DX
@@ -129,7 +129,7 @@ class Nao(Robot):
                 'R',
                 [dx['location']],
                 [dx['configuration']],
-                dx['orientation'],
+                [dx['orientation']],
                 [dx['movement']]
             ).perform_sign()
         # if SX
@@ -140,7 +140,7 @@ class Nao(Robot):
                 'L',
                 [sx['location']],
                 [sx['configuration']],
-                sx['orientation'],
+                [sx['orientation']],
                 [sx['movement']]
             ).perform_sign()
 

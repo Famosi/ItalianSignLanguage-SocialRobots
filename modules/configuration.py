@@ -1,8 +1,8 @@
 from controller import Robot, Keyboard, Motion
-from time import sleep
 import sys
 sys.path.append('../../')
 from utils import path_motions_configuration
+
 
 class Configuration:
 
@@ -12,7 +12,6 @@ class Configuration:
         self.l_r = l_r
         self.motion = self.get_motion()
         self.set_configuration()
-
 
     def set_configuration(self):
         if self.l_r == "L_R":
@@ -27,7 +26,6 @@ class Configuration:
             self.motion[0].play()
             while not self.motion[0].isOver():
                 self.robot.step(self.robot.timeStep)
-
 
     def get_motion(self):
         if self.l_r == "L_R":
