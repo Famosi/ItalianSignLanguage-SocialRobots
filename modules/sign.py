@@ -1,5 +1,6 @@
 from location import Location
 from movement import Movement
+from configuration import Configuration
 
 
 class Sign:
@@ -13,7 +14,7 @@ class Sign:
 
     def perform_sign(self):
         Location(self.robot, self.location, self.l_r)
-        # Configuration(self.config).setConfiguration()
+        Configuration(self.robot,self.configuration,self.l_r)
         # Orientation(self.orientation).setOrientation()
         Movement(self.robot, self.movement, self.l_r)
 

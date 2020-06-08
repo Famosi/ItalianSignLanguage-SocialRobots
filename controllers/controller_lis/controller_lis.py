@@ -23,7 +23,7 @@ from controller import Robot, Keyboard, Motion
 from time import sleep
 from location import Location
 from sign import Sign
-
+import utils as path
 
 class Nao(Robot):
     PHALANX_MAX = 8
@@ -117,7 +117,7 @@ class Nao(Robot):
                 self,
                 'L_R',
                 [dx['location'], sx['location']],
-                dx['configuration'],
+                [dx['configuration']],
                 dx['orientation'],
                 [dx['movement'], sx['movement']]
             ).perform_sign()
@@ -128,7 +128,7 @@ class Nao(Robot):
                 self,
                 'R',
                 [dx['location']],
-                dx['configuration'],
+                [dx['configuration']],
                 dx['orientation'],
                 [dx['movement']]
             ).perform_sign()
@@ -139,7 +139,7 @@ class Nao(Robot):
                 self,
                 'L',
                 [sx['location']],
-                sx['configuration'],
+                [sx['configuration']],
                 sx['orientation'],
                 [sx['movement']]
             ).perform_sign()
@@ -152,7 +152,7 @@ class Nao(Robot):
     def run(self):
 
         # Opening JSON file
-        f = open('/Users/Famosi/Desktop/SocialRobot-ISL/sign_dictionary.json')
+        f = open(path.path_dictionary)
 
         # returns JSON object
         # as a dictionary

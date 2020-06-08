@@ -6,12 +6,7 @@
       "orientation": 0,
       "movement": ["shoulder_elbow_circular"]
     },
-    {
-      "location": "head",
-      "configuration": "close_hand",
-      "orientation": 0,
-      "movement": ["shoulder_elbow_circular"]
-    }
+    null
   ],
   "conoscere": [
     {
