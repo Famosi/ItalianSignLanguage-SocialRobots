@@ -14,17 +14,42 @@ class Movement:
         self.set_movement()
 
     def get_motions(self):
-        motions = []
-        for configuration in self.configurations:
-            motions.append(
-                Motion(path_motions_movement + configuration + '_' + self.l_r + '.motion')
-            )
-        return motions
+        if self.l_r == "L_R":
+            motions_dx = []
+            motions_sx = []
+            for configuration in self.configurations[0]:
+                motions_dx.append(
+                    Motion(path_motions_movement + configuration + '_R' + '.motion')
+                )
+            for configuration in self.configurations[1]:
+                motions_sx.append(
+                    Motion(path_motions_movement + configuration + '_L' + '.motion')
+                )
+            return [motions_dx, motions_sx]
+        else:
+            motions = []
+            for configuration in self.configurations[0]:
+                motions.append(
+                    Motion(path_motions_movement + configuration + '_' + self.l_r + '.motion')
+                )
+            return [motions]
 
     def set_movement(self):
-        for _ in range(4):
-            for motion in self.motions:
-                self.play_movement(motion)
+        if self.l_r == "L_R":
+            for _ in range(3):
+                for motion_dx in self.motions[0]:
+                    motion_dx.play()
+                    while not motion_dx.isOver():
+                        for motion_sx in self.motions[1]:
+                            motion_sx.play()
+                            while not motion_sx.isOver():
+                                self.robot.step(self.robot.timeStep)
+                        self.robot.step(self.robot.timeStep)
+            self.play_movement(self.rest_position)
+        else:
+            for _ in range(3):
+                for motion in self.motions[0]:
+                    self.play_movement(motion)
         self.play_movement(self.rest_position)
 
     def play_movement(self, motion):

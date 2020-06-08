@@ -127,27 +127,39 @@ class Nao(Robot):
         self.keyboard.enable(10 * self.timeStep)
 
     def execute_sign(self, data):
+        # if DX & SX
+        if data[0] is not None and data[1] is not None:
+            dx = data[0]
+            sx = data[1]
+            Sign(
+                self,
+                'L_R',
+                [dx['location'], sx['location']],
+                dx['configuration'],
+                dx['orientation'],
+                [dx['movement'], sx['movement']]
+            ).perform_sign()
         # if DX
-        if data[0] is not None:
+        elif data[0] is not None:
             dx = data[0]
             Sign(
                 self,
                 'R',
-                dx['location'],
+                [dx['location']],
                 dx['configuration'],
                 dx['orientation'],
-                dx['movement']
+                [dx['movement']]
             ).perform_sign()
         # if SX
-        if data[1] is not None:
+        elif data[1] is not None:
             sx = data[1]
             Sign(
                 self,
                 'L',
-                sx['location'],
+                [sx['location']],
                 sx['configuration'],
                 sx['orientation'],
-                sx['movement']
+                [sx['movement']]
             ).perform_sign()
 
     def __init__(self):
