@@ -3,13 +3,16 @@ class Error:
         pass
 
     def no_verb(self):
-        print("[ERROR]:\n"
-              "Requested verb is not in dictionary!\n"
-              "Try to add new verbs following the README.md file instructions"
+        print(
+            "------\n"
+            "[ERROR]:"
+            "Requested verb is not in dictionary!\n"
+            "Try to add new verbs following the README.md file instructions"
         )
 
-    def no_file(self):
+    def no_file(self, param):
         print(
+            "------\n"
             "[ERROR]: "
-            "Bad verb's definition. Check the dictionary!"
+            "Bad verb's definition for \"" + param + "\"! Check the dictionary!"
         )

@@ -13,10 +13,10 @@ class Sign:
         self.movement = movement
 
     def perform_sign(self):
-        Performer(path.path_motions_location, self.robot, "static", self.location, self.l_r)
-        Performer(path.path_motions_configuration, self.robot, "static", self.configuration, self.l_r)
-        # Module(path.path_motions_orientation, self.robot, "static" ,self.configuration, self.l_r)
-        Performer(path.path_motions_movement, self.robot, "dynamic", self.movement, self.l_r)
+        Performer("Location", path.path_motions_location, self.robot, "static", self.location, self.l_r)
+        Performer("Configuration", path.path_motions_configuration, self.robot, "static", self.configuration, self.l_r)
+        # Module("Orientation", path.path_motions_orientation, self.robot, "static" ,self.configuration, self.l_r)
+        Performer("Movement", path.path_motions_movement, self.robot, "dynamic", self.movement, self.l_r)
         self.rest_position()
 
     def rest_position(self):

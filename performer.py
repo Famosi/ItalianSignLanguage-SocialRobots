@@ -4,7 +4,8 @@ from error import Error
 
 
 class Performer:
-    def __init__(self, path_module, robot, s_d, module, l_r):
+    def __init__(self, param, path_module, robot, s_d, module, l_r):
+        self.param = param
         self.path = path_module
         self.robot = robot
         self.s_d = s_d
@@ -33,12 +34,12 @@ class Performer:
                     Motion(self.path + self.module[0] + '_R' + '.motion'),
                     Motion(self.path + self.module[1] + '_L' + '.motion')
                 ]
-            Error().no_file()
+            Error().no_file(self.param)
             return None
         else:
             if exists(self.path + self.module[0] + '_' + self.l_r + '.motion'):
                 return [Motion(self.path + self.module[0] + '_' + self.l_r + '.motion')]
-            Error().no_file()
+            Error().no_file(self.param)
             return None
 
     def get_dynamic_motions(self):
@@ -56,7 +57,7 @@ class Performer:
                         Motion(self.path + motion + '_L' + '.motion')
                     )
                 return [motions_dx, motions_sx]
-            Error().no_file()
+            Error().no_file(self.param)
             return None
         else:
             if exists(self.path + self.module[0] + '_' + self.l_r + '.motion'):
@@ -66,7 +67,7 @@ class Performer:
                         Motion(self.path + motion + '_' + self.l_r + '.motion')
                     )
                 return [motions]
-            Error().no_file()
+            Error().no_file(self.param)
             return None
 
     def perform_static(self):
@@ -94,7 +95,6 @@ class Performer:
                             while not motion_sx.isOver():
                                 self.robot.step(self.robot.timeStep)
                         self.robot.step(self.robot.timeStep)
-            self.play(self.rest_position)
         else:
             for _ in range(3):
                 for motion in self.motions[0]:
