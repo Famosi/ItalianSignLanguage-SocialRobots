@@ -1,0 +1,3 @@
+#WEBOTS_MOTION,V1.0,RWristYaw
+00:00:000,Pose1,+0.90
+00:00:400,Pose2,+0.90
