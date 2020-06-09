@@ -3,7 +3,7 @@
     {
       "location": "head",
       "configuration": "beak",
-      "orientation": 0,
+      "orientation": "-45",
       "movement": ["shoulder_elbow_circular"]
     },
     null
@@ -12,7 +12,7 @@
     {
       "location": "head",
       "configuration": "beak",
-      "orientation": 0,
+      "orientation": "-90",
       "movement": ["hand_open_close"]
     },
     null
@@ -24,12 +24,7 @@
       "orientation": 0,
       "movement": ["shoulder_elbow_circular"]
     },
-    {
-      "location": "chest",
-      "configuration": "semi_close_hand",
-      "orientation": 0,
-      "movement": ["shoulder_elbow_circular"]
-    }
+    null
   ]
 }
 
