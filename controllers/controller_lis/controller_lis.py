@@ -38,23 +38,12 @@ class Nao(Robot):
         self.leds[6].set(rgb & 0xFF)
 
     def printHelp(self):
-        print('----------nao_demo_python----------')
+        print('----------NAO_ROBOT-ISL----------')
         print('Use the keyboard to control the robots (one at a time)')
         print('(The 3D window need to be focused)')
-        print('[Up][Down]: move one step forward/backwards')
-        print('[<-][->]: side step left/right')
-        print('[Shift] + [<-][->]: turn left/right')
-        print('[U]: print ultrasound sensors')
-        print('[A]: print accelerometers')
-        print('[G]: print gyros')
-        print('[S]: print gps')
-        print('[I]: print inertial unit (roll/pitch/yaw)')
-        print('[F]: print foot sensors')
-        print('[B]: print foot bumpers')
-        print('[Home][End]: print scaled top/bottom camera image')
-        print('[PageUp][PageDown]: open/close hands')
-        print('[7][8][9]: change all leds RGB color')
-        print('[0]: turn all leds off')
+        print('[P]: Pensare')
+        print('[C]: Conoscere')
+        print('[I]: Invidia')
         print('[H]: print this help message')
 
     def findAndEnableDevices(self):
@@ -105,7 +94,7 @@ class Nao(Robot):
 
         # keyboard
         self.keyboard = self.getKeyboard()
-        self.keyboard.enable(10 * self.timeStep)
+        self.keyboard.enable(5 * self.timeStep)
 
     def execute_sign(self, data):
         # if DX & SX
@@ -149,6 +138,7 @@ class Nao(Robot):
         self.findAndEnableDevices()
 
     def run(self):
+        self.printHelp()
 
         # Opening JSON file
         f = open(path.path_dictionary)
