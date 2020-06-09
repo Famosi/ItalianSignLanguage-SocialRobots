@@ -13,7 +13,7 @@
       "location": "head",
       "configuration": "beak",
       "orientation": 0,
-      "movement": ["hand_opeclose"]
+      "movement": ["hand_open_close"]
     },
     null
   ],
