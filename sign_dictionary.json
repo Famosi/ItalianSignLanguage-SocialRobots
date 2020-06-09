@@ -62,6 +62,15 @@
       "orientation": "+45",
       "movement": []
     }
+  ],
+  "dimenticare": [
+    {
+      "location": "head",
+      "configuration": "close",
+      "orientation": "-45",
+      "movement": ["arm_linear", "hand_close_open"]
+    },
+    null
   ]
 }
 

@@ -155,6 +155,9 @@ class Nao(Robot):
                 if key == ord('A'):
                     input = "amare"
                     self.execute_sign(data[input])
+                if key == ord('D'):
+                    input = "dimenticare"
+                    self.execute_sign(data[input])
                 if key == ord('P'):
                     input = "pensare"
                     self.execute_sign(data[input])
