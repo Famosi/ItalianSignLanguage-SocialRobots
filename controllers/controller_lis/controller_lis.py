@@ -163,7 +163,7 @@ class Nao(Robot):
 
             try:
                 if key == ord('P'):
-                    input = "casa"
+                    input = "pensare"
                     self.execute_sign(data[input])
 
                 if key == ord('I'):

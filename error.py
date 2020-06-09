@@ -8,7 +8,7 @@ class Error:
               "Try to add new verbs following the README.md file instructions"
         )
 
-    def no_file(self, module):
+    def no_file(self):
         print(
             "[ERROR]: "
             "Bad verb's definition. Check the dictionary!"

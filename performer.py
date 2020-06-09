@@ -43,8 +43,8 @@ class Performer:
 
     def get_dynamic_motions(self):
         if self.l_r == "L_R":
-            if exists(self.path + self.module[0] + '_R' + '.motion') and exists(
-                    self.path + self.module[0] + '_L' + '.motion'):
+            if exists(self.path + self.module[0][0] + '_R' + '.motion') and exists(
+                    self.path + self.module[1][0] + '_L' + '.motion'):
                 motions_dx = []
                 motions_sx = []
                 for motion in self.module[0]:
