@@ -18,9 +18,10 @@ import sys
 sys.path.append('../../')
 
 import json
+import utils as path
 from controller import Robot, Keyboard, Motion
 from sign import Sign
-import utils as path
+from error import Error
 
 
 class Nao(Robot):
@@ -160,17 +161,20 @@ class Nao(Robot):
         while True:
             key = self.keyboard.getKey()
 
-            if key == ord('P'):
-                input = "pensare"
-                self.execute_sign(data[input])
+            try:
+                if key == ord('P'):
+                    input = "casa"
+                    self.execute_sign(data[input])
 
-            if key == ord('I'):
-                input = "invidia"
-                self.execute_sign(data[input])
+                if key == ord('I'):
+                    input = "invidia"
+                    self.execute_sign(data[input])
 
-            if key == ord('C'):
-                input = "conoscere"
-                self.execute_sign(data[input])
+                if key == ord('C'):
+                    input = "conoscere"
+                    self.execute_sign(data[input])
+            except KeyError:
+                Error().no_verb()
 
             if robot.step(self.timeStep) == -1:
                 # Closing file

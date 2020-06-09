@@ -1,5 +1,6 @@
-import sys
+from os.path import exists
 from controller import Motion
+from error import Error
 
 
 class Performer:
@@ -19,40 +20,54 @@ class Performer:
             return self.get_dynamic_motions()
 
     def perform(self):
-        if self.s_d == "static":
-            self.perform_static()
-        else:
-            self.perform_dynamic()
+        if self.motions is not None:
+            if self.s_d == "static":
+                self.perform_static()
+            else:
+                self.perform_dynamic()
 
     def get_static_motions(self):
         if self.l_r == "L_R":
-            return [
-                Motion(self.path + self.module[0] + '_R' + '.motion'),
-                Motion(self.path + self.module[1] + '_L' + '.motion')
-            ]
+            if exists(self.path + self.module[0] + '_R' + '.motion') and exists(self.path + self.module[0] + '_L' + '.motion'):
+                return [
+                    Motion(self.path + self.module[0] + '_R' + '.motion'),
+                    Motion(self.path + self.module[1] + '_L' + '.motion')
+                ]
+            Error().no_file()
+            return None
         else:
-            return [Motion(self.path + self.module[0] + '_' + self.l_r + '.motion')]
+            if exists(self.path + self.module[0] + '_' + self.l_r + '.motion'):
+                return [Motion(self.path + self.module[0] + '_' + self.l_r + '.motion')]
+            Error().no_file()
+            return None
 
     def get_dynamic_motions(self):
         if self.l_r == "L_R":
-            motions_dx = []
-            motions_sx = []
-            for motion in self.module[0]:
-                motions_dx.append(
-                    Motion(self.path + motion + '_R' + '.motion')
-                )
-            for motion in self.module[1]:
-                motions_sx.append(
-                    Motion(self.path + motion + '_L' + '.motion')
-                )
-            return [motions_dx, motions_sx]
+            if exists(self.path + self.module[0] + '_R' + '.motion') and exists(
+                    self.path + self.module[0] + '_L' + '.motion'):
+                motions_dx = []
+                motions_sx = []
+                for motion in self.module[0]:
+                    motions_dx.append(
+                        Motion(self.path + motion + '_R' + '.motion')
+                    )
+                for motion in self.module[1]:
+                    motions_sx.append(
+                        Motion(self.path + motion + '_L' + '.motion')
+                    )
+                return [motions_dx, motions_sx]
+            Error().no_file()
+            return None
         else:
-            motions = []
-            for motion in self.module:
-                motions.append(
-                    Motion(self.path + motion + '_' + self.l_r + '.motion')
-                )
-            return [motions]
+            if exists(self.path + self.module[0] + '_' + self.l_r + '.motion'):
+                motions = []
+                for motion in self.module:
+                    motions.append(
+                        Motion(self.path + motion + '_' + self.l_r + '.motion')
+                    )
+                return [motions]
+            Error().no_file()
+            return None
 
     def perform_static(self):
         if self.l_r == "L_R":
