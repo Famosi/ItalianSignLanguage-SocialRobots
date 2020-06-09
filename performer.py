@@ -18,7 +18,9 @@ class Performer:
         if self.s_d == "static":
             return self.get_static_motions()
         else:
-            return self.get_dynamic_motions()
+            if len(self.module[0]) > 0:
+                return self.get_dynamic_motions()
+            return None
 
     def perform(self):
         if self.motions is not None:

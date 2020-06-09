@@ -152,16 +152,23 @@ class Nao(Robot):
             key = self.keyboard.getKey()
 
             try:
+                if key == ord('A'):
+                    input = "amare"
+                    self.execute_sign(data[input])
                 if key == ord('P'):
                     input = "pensare"
                     self.execute_sign(data[input])
-
                 if key == ord('I'):
                     input = "invidia"
                     self.execute_sign(data[input])
-
                 if key == ord('C'):
                     input = "conoscere"
+                    self.execute_sign(data[input])
+                if key == ord('F'):
+                    input = "fidarsi"
+                    self.execute_sign(data[input])
+                if key == ord('R'):
+                    input = "ricordare"
                     self.execute_sign(data[input])
             except KeyError:
                 Error().no_verb()
@@ -173,7 +180,7 @@ class Nao(Robot):
 
 
 # # READ MOTION FILE ?
-# f = open('/Users/Famosi/Desktop/SocialRobot-ISL/motions/movement/shoulder_in_out_R.motion')
+# f = open('/Users/Famosi/Desktop/SocialRobot-ISL/motions/movement/arm_left_right_R.motion')
 # for raw in f:
 #     n = raw[16:].strip()
 #     print(n)

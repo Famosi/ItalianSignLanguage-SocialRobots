@@ -4,7 +4,7 @@
       "location": "head",
       "configuration": "beak",
       "orientation": "-45",
-      "movement": ["shoulder_elbow_circular"]
+      "movement": ["arm_circular"]
     },
     null
   ],
@@ -21,10 +21,47 @@
     {
       "location": "chest",
       "configuration": "scratch",
-      "orientation": 0,
-      "movement": ["shoulder_elbow_circular"]
+      "orientation": "+45",
+      "movement": ["arm_circular"]
     },
     null
+  ],
+  "amare": [
+    {
+      "location": "chest",
+      "configuration": "open",
+      "orientation": "+45",
+      "movement": ["arm_from_robot_to_user"]
+    },
+    {
+      "location": "chest",
+      "configuration": "open",
+      "orientation": "+45",
+      "movement": ["arm_from_robot_to_user"]
+    }
+  ],
+  "ricordare": [
+    {
+      "location": "head",
+      "configuration": "open",
+      "orientation": "+90",
+      "movement": ["arm_from_robot_to_user"]
+    },
+    null
+  ],
+  "fidarsi": [
+    {
+      "location": "chest",
+      "configuration": "close",
+      "orientation": "+45",
+      "movement": []
+    },
+    {
+      "location": "chest",
+      "configuration": "close",
+      "orientation": "+45",
+      "movement": []
+    }
   ]
 }
 
