@@ -13,7 +13,7 @@
 
 ## The Dictionary
 
-## Motions Details
+## Motions
 
 ## Authors
 

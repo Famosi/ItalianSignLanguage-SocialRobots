@@ -191,12 +191,6 @@ class Nao(Robot):
                 break
 
 
-# # READ MOTION FILE ?
-# f = open('/Users/Famosi/Desktop/SocialRobot-ISL/motions/movement/arm_left_right_R.motion')
-# for raw in f:
-#     n = raw[16:].strip()
-#     print(n)
-
 # create the Robot instance and run main loop
 robot = Nao()
 robot.run()
