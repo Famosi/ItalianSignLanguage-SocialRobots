@@ -19,7 +19,26 @@
 
 ## The Dictionary
 
-## Motions
+## Motion
+
+<details>
+<summary><b><i>configuration/</i></b></summary>
+The "configuration" motions refer to specific **hand** configurations.
+Their names can be **figurative** or **explicative**.
+
+</details>
+
+<details>
+<summary><b><i>location/</i></b></summary>
+</details>
+
+<details>
+<summary><b><i>movement/</i></b></summary>
+</details>
+
+<details>
+<summary><b><i>orientation/</i></b></summary>
+</details>
 
 ## Authors
 **[Simone Faggi](https://github.com/FaMoSi)** & **[Pietro Lami](https://github.com/PietroLami)**
