@@ -1,7 +1,7 @@
 {
   "pensare": [
     {
-      "location": "head_open",
+      "location": "head_side",
       "configuration": "beak",
       "orientation": "+45",
       "movement": ["arm_circular"]
@@ -10,7 +10,7 @@
   ],
   "conoscere": [
     {
-      "location": "head_open",
+      "location": "head_side",
       "configuration": "beak",
       "orientation": "-90",
       "movement": ["hand_first_open_close"]
@@ -19,7 +19,7 @@
   ],
   "invidia": [
     {
-      "location": "chest_close",
+      "location": "chest_front",
       "configuration": "scratch",
       "orientation": "+45",
       "movement": ["arm_circular"]
@@ -28,13 +28,13 @@
   ],
   "amare": [
     {
-      "location": "chest_close",
+      "location": "chest_front",
       "configuration": "open_all",
       "orientation": "+45",
       "movement": ["arm_from_robot_to_user"]
     },
     {
-      "location": "chest_close",
+      "location": "chest_front",
       "configuration": "open_all",
       "orientation": "+45",
       "movement": ["arm_from_robot_to_user"]
@@ -42,7 +42,7 @@
   ],
   "ricordare": [
     {
-      "location": "head_open",
+      "location": "head_side",
       "configuration": "open_all",
       "orientation": "+90",
       "movement": ["arm_from_robot_to_user"]
@@ -51,13 +51,13 @@
   ],
   "ragionare": [
     {
-      "location": "head_open",
+      "location": "head_side",
       "configuration": "open_all",
       "orientation": "-45",
       "movement": ["elbow_linear"]
     },
     {
-      "location": "head_open",
+      "location": "head_side",
       "configuration": "open_all",
       "orientation": "-45",
       "movement": ["elbow_linear"]
@@ -65,13 +65,13 @@
   ],
   "fidarsi": [
     {
-      "location": "chest_close",
+      "location": "chest_front",
       "configuration": "close_all",
       "orientation": "+45",
       "movement": []
     },
     {
-      "location": "chest_close",
+      "location": "chest_front",
       "configuration": "close_all",
       "orientation": "+45",
       "movement": []
@@ -79,7 +79,7 @@
   ],
   "dimenticare": [
     {
-      "location": "head_open",
+      "location": "head_side",
       "configuration": "close_all",
       "orientation": "-45",
       "movement": ["arm_linear", "hand_all_open_close"]
@@ -88,13 +88,13 @@
   ],
   "arrabbiarsi": [
     {
-      "location": "chest_open",
+      "location": "chest_side",
       "configuration": "scratch",
       "orientation": "-45",
       "movement": ["elbow_linear"]
     },
     {
-      "location": "chest_open",
+      "location": "chest_side",
       "configuration": "scratch",
       "orientation": "-45",
       "movement": ["elbow_linear"]
@@ -102,7 +102,7 @@
   ],
   "gelosia": [
     {
-      "location": "chest_close",
+      "location": "chest_front",
       "configuration": "open_index",
       "orientation": "-45",
       "movement": ["arm_linear", "wrist_circular"]
