@@ -22,22 +22,21 @@
 ## Motion
 
 <details>
-<summary><b><i>configuration/</i></b></summary>
+<summary><b><i>configuration</i></b></summary>
 The "configuration" motions refer to specific <b>hand</b> configurations.
-Their names can be <b>figurative</b> or <b>explicative</b>.
-
+Their names can be <b>figurative</b> or <b>explicative</b>.   
 </details>
 
 <details>
-<summary><b><i>location/</i></b></summary>
+<summary><b><i>location</i></b></summary>
 </details>
 
 <details>
-<summary><b><i>movement/</i></b></summary>
+<summary><b><i>movement</i></b></summary>
 </details>
 
 <details>
-<summary><b><i>orientation/</i></b></summary>
+<summary><b><i>orientation</i></b></summary>
 </details>
 
 ## Authors
