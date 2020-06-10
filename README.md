@@ -23,8 +23,8 @@
 
 <details>
 <summary><b><i>configuration/</i></b></summary>
-The "configuration" motions refer to specific **hand** configurations.
-Their names can be **figurative** or **explicative**.
+The "configuration" motions refer to specific <b>hand</b> configurations.
+Their names can be <b>figurative</b> or <b>explicative</b>.
 
 </details>
 
