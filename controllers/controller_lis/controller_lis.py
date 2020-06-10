@@ -41,9 +41,17 @@ class Nao(Robot):
         print('----------NAO_ROBOT-ISL----------')
         print('Use the keyboard to control the robots (one at a time)')
         print('(The 3D window need to be focused)')
-        print('[P]: Pensare')
+        print('[A]: Amare')
         print('[C]: Conoscere')
+        print('[D]: Dimenticare')
+        print('[F]: Fidarsi')
         print('[I]: Invidia')
+        print('[G]: Gelosia')
+        print('[P]: Pensare')
+        print('[Q]: Arrabbiarsi')
+        print('[R]: Ricordare')
+        print('[W]: Ragionare')
+        print('--------------')
         print('[H]: print this help message')
 
     def findAndEnableDevices(self):
