@@ -173,6 +173,15 @@ class Nao(Robot):
                 if key == ord('R'):
                     input = "ricordare"
                     self.execute_sign(data[input])
+                if key == ord('W'):
+                    input = "ragionare"
+                    self.execute_sign(data[input])
+                if key == ord('Q'):
+                    input = "arrabbiarsi"
+                    self.execute_sign(data[input])
+                if key == ord('G'):
+                    input = "gelosia"
+                    self.execute_sign(data[input])
             except KeyError:
                 Error().no_verb()
 
