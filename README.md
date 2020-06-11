@@ -25,6 +25,8 @@
 <summary><b><i>configuration</i></b></summary>
 The "configuration" motions refer to specific <b>hand</b> configurations.
 Their names can be <b>figurative</b> or <b>explicative</b>.
+<br>
+<br>
 
 Beak            |  Scratch
 :-------------------------:|:-------------------------:
