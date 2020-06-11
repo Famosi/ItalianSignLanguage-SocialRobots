@@ -108,6 +108,15 @@
       "movement": ["arm_linear", "wrist_circular"]
     },
     null
+  ],
+  "piacere": [
+    {
+      "location": "chest_side",
+      "configuration": "open_all",
+      "orientation": "-45",
+      "movement": ["arm_circular"]
+    },
+    null
   ]
 }
 
