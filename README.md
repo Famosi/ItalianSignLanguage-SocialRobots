@@ -26,16 +26,9 @@
 The "configuration" motions refer to specific <b>hand</b> configurations.
 Their names can be <b>figurative</b> or <b>explicative</b>.
 
-<b>Beak</b>:
-
-<img width="100" height="100" src="media/motions/beak.png">
-<br>
-<br>
-
-
-<b>Scratch</b>:
-
-<img width="100" height="100" src="media/motions/scratch.png">
+Beak            |  Scratch
+:-------------------------:|:-------------------------:
+![Beak](media/motions/beak.png)  |  ![Scratch](media/motions/scratch.png)
 
 
 </details>
