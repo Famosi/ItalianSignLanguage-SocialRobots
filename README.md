@@ -24,7 +24,15 @@
 <details>
 <summary><b><i>configuration</i></b></summary>
 The "configuration" motions refer to specific <b>hand</b> configurations.
-Their names can be <b>figurative</b> or <b>explicative</b>.   
+Their names can be <b>figurative</b> or <b>explicative</b>.
+
+Beak:
+<img width="350" height="350" src="media/motions/beak.png">
+
+Scratch:
+<img width="350" height="350" src="media/motions/scratch.png">
+
+
 </details>
 
 <details>
