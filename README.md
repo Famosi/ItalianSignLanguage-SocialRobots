@@ -26,7 +26,7 @@
 The <b>configuration</b> motions refer to specific <b>hand</b> configurations.
 Their names can be <b>figurative</b> or <b>explicative</b>. 
 <br>
-To avoid confusion, here are shown the <b>configuration</b> for the <b>figurative</b> names:
+To avoid confusion, here are shown the <b>configurations</b> for the <b>figurative</b> names:
 <br>
 <br>
 
