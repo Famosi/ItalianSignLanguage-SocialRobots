@@ -7,7 +7,7 @@
     * [Install](#install)
     * [Run](#run)
 * [The Dictionary](#the-dictionary)
-* [Motions Details](#motions-details)
+* [Motions Details](#motions)
 * [Authors](#authors)
 
 ## Introduction
@@ -19,12 +19,14 @@
 
 ## The Dictionary
 
-## Motion
+## Motions
 
 <details>
 <summary><b><i>configuration</i></b></summary>
-The "configuration" motions refer to specific <b>hand</b> configurations.
-Their names can be <b>figurative</b> or <b>explicative</b>.
+The <b>configuration</b> motions refer to specific <b>hand</b> configurations.
+Their names can be <b>figurative</b> or <b>explicative</b>. 
+<br>
+To avoid confusion, here are shown the <b>configuration</b> for the <b>figurative</b> names:
 <br>
 <br>
 
