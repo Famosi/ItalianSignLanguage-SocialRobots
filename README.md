@@ -13,6 +13,39 @@
 * [Authors](#authors)
 
 ## Introduction
+The project is the development of an educational social robot 
+to be used at home and/or school to support the learning of **deaf** people. 
+In particular, this is a "gamification" project that 
+allows users to learn the **Italian Sign Language (ISL)**  through 
+a playful activity provided by the robot. 
+The user chooses, among a list, the verb he wants to learn, 
+then the robot execute the corresponding sign. 
+For this purpose, we have chosen [NAO robot](https://www.softbankrobotics.com/emea/en/nao), a small humanoid robot that can 
+replicate human gestures and movements. 
+
+Four main components have been identified to describe a sign:
+* **location**: place where the sign takes place (e.g. head, chest).
+* **hand configuration**: position of the involved hand parts in the sign. 
+* **hand orientation**: orientation of the hand parts involved in the sign (degrees).  
+* **movement**: how the movement of the sign is performed takes place (e.g. circular movement of the arm).
+
+Using these components, it's possible to define new signs 
+(see [The Dictionary](#the-dictionary) section).
+
+The signs for the following verbs are already defined:
+* Mental Activity (**Head** Location):
+    * Think 
+    * Know 
+    * Remember
+    * Forget
+    * Reason 
+* Emotions (**Chest** Location):
+    * Angry
+    * Jealousy
+    * Trust 
+    * Envy
+    * Love
+
 
 ## Getting Started
 ### Prerequisites
@@ -36,7 +69,7 @@ cd SocialRobot-ISL
 That's all, everything is installed and you can run the NAO-ISL robot!
 
 ### Run
-You can run the project followint these steps:
+You can run the project following these steps:
 * Open [Webots](https://cyberbotics.com).
 * From the menu bar click on `File -> Open World...`.
 * Select the [LIS-Nao.wbt](./worlds/LIS-Nao.wbt) file. You can find it in `~/SocialRobot-ISL/worlds/LIS-Nao.wbt`
