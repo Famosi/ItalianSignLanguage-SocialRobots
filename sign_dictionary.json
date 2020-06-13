@@ -4,7 +4,7 @@
       "location": "head_side",
       "configuration": "beak",
       "orientation": "+45",
-      "movement": ["arm_circular"]
+      "movement": ["arm_circular_fast"]
     },
     null
   ],
@@ -22,7 +22,7 @@
       "location": "chest_front",
       "configuration": "scratch",
       "orientation": "+45",
-      "movement": ["arm_circular"]
+      "movement": ["arm_circular_slow"]
     },
     null
   ],
