@@ -12,6 +12,12 @@ class Sign:
         self.orientation = orientation
         self.movement = movement
 
+    def rest_position(self):
+        rest_position = Motion(path.path_motions_movement + 'rest_position.motion')
+        rest_position.play()
+        while not rest_position.isOver():
+            self.robot.step(self.robot.timeStep)
+
     def perform_sign(self):
         Performer("Configuration", path.path_motions_configuration, self.robot, "static", self.configuration, self.l_r)
         Performer("Location", path.path_motions_location, self.robot, "static", self.location, self.l_r)
@@ -19,10 +25,5 @@ class Sign:
         Performer("Movement", path.path_motions_movement, self.robot, "dynamic", self.movement, self.l_r)
         self.rest_position()
 
-    def rest_position(self):
-        rest_position = Motion(path.path_motions_movement + 'rest_position.motion')
-        rest_position.play()
-        while not rest_position.isOver():
-            self.robot.step(self.robot.timeStep)
 
 
