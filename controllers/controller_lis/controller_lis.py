@@ -104,18 +104,36 @@ class Nao(Robot):
         self.keyboard = self.getKeyboard()
         self.keyboard.enable(5 * self.timeStep)
 
+    def ask(self, data, location):
+        for el in data:
+            for e in data[el][0]:
+                if e == 'location' and data[el][0][e] == location:
+                    # prenderne a caso 1 di questi
+                    pass
+        # inserire gesto scelto a caso
+
+        print(
+            'Press y for a casual sign:' + input + ' with the same location: ' + location + ', another key to not perform the sign')
+        key = self.keyboard.getKey()
+        if key == ord('Y'):
+            self.execute_sign(data[input])
+        else:
+            pass
+
     def execute_sign(self, data):
         # if DX & SX
         if data[0] is not None and data[1] is not None:
             dx = data[0]
             sx = data[1]
+            #contollare se dx e sx hanno lo stesso ordine
             Sign(
                 self,
                 'L_R',
                 [dx['location'], sx['location']],
                 [dx['configuration'], sx['configuration']],
                 [dx['orientation'], sx['orientation']],
-                [dx['movement'], sx['movement']]
+                [dx['movement'], sx['movement']],
+                dx.keys()
             ).perform_sign()
         # if DX
         elif data[0] is not None:
@@ -126,7 +144,8 @@ class Nao(Robot):
                 [dx['location']],
                 [dx['configuration']],
                 [dx['orientation']],
-                dx['movement']
+                dx['movement'],
+                dx.keys()
             ).perform_sign()
         # if SX
         elif data[1] is not None:
@@ -137,7 +156,8 @@ class Nao(Robot):
                 [sx['location']],
                 [sx['configuration']],
                 [sx['orientation']],
-                sx['movement']
+                sx['movement'],
+                sx.keys()
             ).perform_sign()
 
     def __init__(self):

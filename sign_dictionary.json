@@ -1,10 +1,10 @@
 {
   "pensare": [
     {
-      "location": "head_side",
+      "movement": ["arm_circular_fast"],
       "configuration": "beak",
       "orientation": "+45",
-      "movement": ["arm_circular_fast"]
+      "location": "head_side"
     },
     null
   ],
