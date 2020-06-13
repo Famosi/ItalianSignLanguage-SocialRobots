@@ -29,10 +29,20 @@ Four main components have been identified to describe a sign:
 * **hand orientation**: orientation of the hand parts involved in the sign (degrees).  
 * **movement**: how the movement of the sign is performed takes place (e.g. circular movement of the arm).
 
-Using these components, it's possible to define new signs 
-(see [The Dictionary](#the-dictionary) section).
+Using these components, it's possible to define new signs. 
+See [The Dictionary](#the-dictionary) section to find out how 
+you can define a sign).
 
-The signs for the following verbs are already defined:
+The location is also used to improve the interaction with the user. 
+The place of execution of a sign (i.e location) is influenced by its 
+category (e.g. verbs that refer to an emotion are executed near the chest). 
+The robot uses this categorization to propose verbs that have the same 
+location as the verb he chooses. For example, if the user chooses the verb 
+"to think", the robot will execute that verb and suggest to the user that the verb 
+"to reason" is executed in the same location explain that both verbs 
+are referring to a mental activity.
+
+The signs for the following verbs are already defined in the [sing dictionary](./sign_dictionary.json):
 * Mental Activity (**Head** Location):
     * Think 
     * Know 
@@ -45,7 +55,8 @@ The signs for the following verbs are already defined:
     * Trust 
     * Envy
     * Love
-
+    
+For more info about this project see the [project report](#).
 
 ## Getting Started
 ### Prerequisites
