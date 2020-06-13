@@ -22,20 +22,19 @@ class Sign:
     # order solo di dx se ci sono entrambi (chiedere come fare)
     def perform_sign(self):
         for param in self.order:
-            settings = where(self,param)
-            Performer(settings[0], settings[1], self.robot, settings[2], self.configuration, self.l_r)
-            self.rest_position()
+            settings = self.get_settings(param)
+            Performer(settings[0], settings[1], self.robot, settings[2], settings[3], self.l_r)
+        self.rest_position()
 
-    def where(self,s):
-        var = []
-        if s == "configuration":
-            return ["Configuration",path.path_motions_configuration,"static"]
-        elif s == "location":
-            return ["Location", path.path_motions_configuration, "static"]
-        elif s == "orientation":
-            return ["Orientation", path.path_motions_configuration, "static"]
-        elif s == "movement":
-            return ["Movement", path.path_motions_configuration, "dynamic"]
-        # errore se var è vuoto
+    def get_settings(self, param):
+        if param == "configuration":
+            return ["Configuration", path.path_motions_configuration, "static", self.configuration]
+        if param == "location":
+            return ["Location", path.path_motions_location, "static", self.location]
+        if param == "orientation":
+            return ["Orientation", path.path_motions_orientation, "static", self.orientation]
+        if param == "movement":
+            return ["Movement", path.path_motions_movement, "dynamic", self.movement]
+        # Handle erroR!!!!
         return ["Errore","ERRORE","Errore"]
 
