@@ -1,5 +1,7 @@
 # NAO Robot - Italian Sign Language
 
+<img alt="demo" width="350" height="350" src="./media/gifs/think-nao-gt.gif">
+
 ## Table Of Content
 * [Introduction](#introduction)
 * [Getting Started](#getting-started)
