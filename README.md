@@ -33,7 +33,7 @@ Using these components, it's possible to define new signs.
 See [The Dictionary](#the-dictionary) section to find out how 
 you can define a sign).
 
-The location is also used to improve the interaction with the user. 
+The **location** is also used to improve the interaction with the user. 
 The place of execution of a sign (i.e location) is influenced by its 
 category (e.g. verbs that refer to an emotion are executed near the chest). 
 The robot uses this categorization to propose verbs that have the same 
@@ -75,7 +75,7 @@ git clone https://github.com/FaMoSi/SocialRobot-ISL
 cd SocialRobot-ISL
 ```
 
-* Edit the `local path` in [utils.py](./utils.py). It has to points to the `SocialRobot-ISL` cloned repository.
+* Edit the `local_path` in [utils.py](./utils.py). It has to points to the `SocialRobot-ISL` cloned repository.
 
 That's all, everything is installed and you can run the NAO-ISL robot!
 
