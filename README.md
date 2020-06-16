@@ -68,14 +68,13 @@ That's all, everything is installed and you can run the NAO-ISL robot!
 
 ### Run
 You can run the project following these steps:
-* Open [Webots](https://cyberbotics.com).
-* From the menu bar click on `File -> Open World...`.
-* Select the [LIS-Nao.wbt](./worlds/LIS-Nao.wbt) file. You can find it in `~/SocialRobot-ISL/worlds/LIS-Nao.wbt`
-* Click the **Play** button.
-* Follow the instructions shown in the console.
+* **Open** [Webots](https://cyberbotics.com).
+* From the menu bar **click** on `File -> Open World...`.
+* **Select and open** the [LIS-Nao.wbt](./worlds/LIS-Nao.wbt) world file. You can find it in `~/SocialRobot-ISL/worlds/LIS-Nao.wbt`
+* **Click** the "Play" button.
+* **Follow the instructions** shown in the console.
 
 **NB: The robot waits for pressed key. Make sure the 3D window of [Webots](https://cyberbotics.com) is selected and the simulation is running.**
-
 ## The Dictionary
 [The dictionary](./sign_dictionary.json) is where signs are defined. 
 It is a `.json` file with following format:
@@ -133,9 +132,9 @@ The signs for the following verbs are already defined in the [sing dictionary](.
     * Love
 
 ### How to add new signs
-1. **Let's add a new sign defintion to the [dictionary](./sign_dictionary.json)**:
-* open the [sing dictionary.json](./sign_dictionary.json) file.
-* copy and paste this code fragment:
+#### Let's add a new sign defintion to the [dictionary](./sign_dictionary.json)**:
+* **open** the [sing dictionary.json](./sign_dictionary.json) file.
+* **copy and paste** this code fragment:
 ```
 "name_sign": [
     {
@@ -156,9 +155,9 @@ The signs for the following verbs are already defined in the [sing dictionary](.
     * `name_sign` with the name of the new sign.
     * `[parameter]_value` with the name of the motion you want to infer to the corresponding parameter.
 
-2. **Now we need to assign a pressed key to the new defined sign**:
-* open the [controlle_lis.py](./controllers/controller_lis/controller_lis.py) file.
-* uncomment [this code fragment](https://github.com/FaMoSi/SocialRobot-ISL/blob/59b83af3e238a5d30099c847586b834ccf9cc7a4/controllers/controller_lis/controller_lis.py#L216):
+#### Now we need to assign a pressed key to the new defined sign:
+* **open** the [controlle_lis.py](./controllers/controller_lis/controller_lis.py) file.
+* **uncomment** [this code fragment](https://github.com/FaMoSi/SocialRobot-ISL/blob/59b83af3e238a5d30099c847586b834ccf9cc7a4/controllers/controller_lis/controller_lis.py#L216):
 ```
 """
 if key == ord('NEW_KEY'):
@@ -166,7 +165,7 @@ if key == ord('NEW_KEY'):
   self.execute_sign(data[input])
 """
 ```
-* replace:
+* **replace**:
     * `NEW_KEY` with the **new key** you want to be pressed (**Uppercase letter**) 
     * `new_sign` with the `name_sign` you defined before.
 
@@ -174,7 +173,14 @@ if key == ord('NEW_KEY'):
 
 
 ## Motions
+In this section are presented, for each parameter (location, hand_configuration, hand_orientation, movement), 
+what's the nomenclature pattern for theirs available `motions`. 
+You can also use this section to check available motions and combine them to define new signs (see [How to add new signs](#how-to-add-new-signs)).
 
+In case you'll add new motion, it's highly recommended to use the same pattern when naming the file `.motion`,
+in order to maintain a consistent nomenclature (see [How to add new motions](#how-to-add-new-motions)).
+
+### Available Motions
 <details>
 <summary><b><i>configuration</i></b></summary>
 The <b>configuration</b> motions refer to specific <b>hand</b> configurations.
@@ -203,6 +209,44 @@ Beak            |  Scratch
 <details>
 <summary><b><i>orientation</i></b></summary>
 </details>
+
+### How to add new motions
+You may want to add new motions in order to define new signs.
+Here is a brief introduction to how a `.motion` file is structured, then a short explanation about how to add a ready-to-use motion.
+
+Here is an example of `.motion` file:
+```
+#WEBOTS_MOTION,V1.0,LShoulderRoll,LElbowRoll
+00:00:000,Pose1,0.1,-1.3
+00:00:200,Pose2,-0.1,-1.45
+00:00:400,Pose3,-0.2,-1.45
+00:00:600,Pose4,-0.3,-1.45
+00:00:800,Pose5,-0.3,-1.3
+00:01:000,Pose6,-0.3,-1.2
+00:01:200,Pose7,-0.2,-1.2
+00:01:400,Pose8,+0.1,-1.2
+```
+The **first line** defines that this is a `#WEBOTS_MOTION` file that uses the `V1.0` version.
+Then follows a declaration of interested actuators (in this case, `LShoulderRoll` and `LElbowRoll`).
+
+Each one of the other lines defines, the name of the `pose` and `values` that the corespondent actuators has at that `time`.
+In the example above, we have that: 
+* at time `00:00:000`, `LShoulderRoll` has the value `0.1` and `LElbowRoll` has the value `-1.3`.
+* at time `00:00:200`, `LShoulderRoll` has the value `-0.1` and `LElbowRoll` has the value `-1.45`.
+* and so on ...
+
+If you want to **add a new motion**, follow these steps:
+* **create** a new file `[name_of_the_motion].motion` inside the **corespondent directory**. 
+For example, if you want to add a new `hand_configuration` motion, create the `.motion` file in [./motions/configuration](./motions/configuration)
+* **copy and paste** this code fragment:
+```
+#WEBOTS_MOTION,V1.0,[ACTUATOR_1],[ACTUATOR_2],...,[ACTUATOR_N]
+00:00:000,Pose1,[VALUE_1],[VALUE_2],...,[VALUE_N]
+00:00:200,Pose2,[VALUE_1],[VALUE_2],...,[VALUE_N]
+```
+* **replace**:
+    * `[ACTUATOR_*]` with interested actuators. **You can find available actuators [here](https://cyberbotics.com/doc/guide/nao).**
+    * `[VALUE_*]` with the value you want to infer to the corespondent actuator. **You can find accepted values for each actuator [here](https://cyberbotics.com/doc/guide/nao)**
 
 ## Authors
 **[Simone Faggi](https://github.com/FaMoSi)** & **[Pietro Lami](https://github.com/PietroLami)**
