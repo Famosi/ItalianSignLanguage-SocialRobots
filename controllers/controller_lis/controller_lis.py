@@ -213,6 +213,11 @@ class Nao(Robot):
                 if key == ord('V'):
                     input = "piacere"
                     self.execute_sign(data[input])
+                """
+                if key == ord('KEY'):
+                    input = "new_sign"
+                    self.execute_sign(data[input])
+                """
                 if key == ord('H'):
                     self.printHelp()
             except KeyError:
