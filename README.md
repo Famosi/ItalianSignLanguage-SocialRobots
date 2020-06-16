@@ -77,25 +77,41 @@ You can run the project following these steps:
 It has the following format:
 ```
 {
-  "verb": [
+  "name_sign": [
     # RIGHT
     {
-      "location": location,
-      "hand_configuration": hand_configuration,
-      "hand_orientation": hand_orientation,
-      "movement": [movement_1, movement_2, ..., movement_n]
+      "location": location_value,
+      "hand_configuration": hand_configuration_value,
+      "hand_orientation": hand_orientation_value,
+      "movement": [movement_value_1, movement_value_2, ..., movement_value_n]
     },
     # LEFT
     {
-      "location": location,
-      "hand_configuration": hand_configuration,
-      "hand_orientation": hand_orientation,
-      "movement": [movement_1, movement_2, ..., movement_n]
+      "location": location_value,
+      "hand_configuration": hand_configuration_value,
+      "hand_orientation": hand_orientation_value,
+      "movement": [movement_value_1, movement_value_2, ..., movement_value_n]
     }
   ],
   .....
 }
 ```
+**Each sign has two entries:**
+The first one (# RIGHT) defines how the **right** side (e.g. right hand, right shoulder, etc.) 
+of the robot performs the sign, while the second one (# LEFT) is related to the **left** side.
+
+**NB:**
+Each entry (Left and Right) has 4 parameters. 
+Their values are the name of the related `.motion` file and **it must be defined**. 
+Every parameter has is own directory ([./motions/\[parameter\]](./motions)) with his motions.
+**Please, see the [Motions](#motions) section
+to check available motions and find out how you can add new ones!**
+
+Here is an explanation of each parameter:
+* `location`: where the sign take place. (**string**).
+* `hand_configuration`: the shape of the hand. (**string**).
+* `hand_orientation`: where the wrist is facing. This value is expressed in degrees from -180 (facing the listener) to 180 (facing the robot).
+* `movement`: what movement performs the sing (**string**).
 
 The signs for the following verbs are already defined in the [sing dictionary](./sign_dictionary.json):
 * Mental Activity (**Head** Location):
@@ -112,7 +128,7 @@ The signs for the following verbs are already defined in the [sing dictionary](.
     * Love
 
 ### How to add new signs
-**Add a new sign defintion to the [dictionary](./sign_dictionary.json)**:
+1. **Add a new sign defintion to the [dictionary](./sign_dictionary.json)**:
 * open the [sing dictionary.json](./sign_dictionary.json) file.
 * copy and paste this code fragment:
 ```
@@ -131,23 +147,24 @@ The signs for the following verbs are already defined in the [sing dictionary](.
     }
   ]
 ```
-* edit `name_sign` and `parameters_values` with the corresponding ones.
+    * edit `name_sign` and `parameters_values` with the corresponding ones.
 
-**Assign a key to the new defined sign**:
+2. **Assign a key to the new defined sign**:
 * open the [controlle_lis.py](./controllers/controller_lis/controller_lis.py) file.
 * uncomment [this code](https://github.com/FaMoSi/SocialRobot-ISL/blob/59b83af3e238a5d30099c847586b834ccf9cc7a4/controllers/controller_lis/controller_lis.py#L216):
 ```
 """
-   if key == ord('NEW_KEY'):
-     input = "new_sign"
-     self.execute_sign(data[input])
+if key == ord('NEW_KEY'):
+  input = "new_sign"
+  self.execute_sign(data[input])
 """
 ```
 * replace:
+
     * `NEW_KEY` with the **new key** you want to be pressed (**Uppercase letter**) 
     * `new_sign` with the new `name_sign` you defined in the [dictionary](./sign_dictionary.json)
 
-**Now you can perform the new sign by following the instructions in the [Getting Started](#getting-started) section.
+**Now you can perform the new sign by following the instructions in the [Getting Started](#getting-started) section.**
 
 
 ## Motions
