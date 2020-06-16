@@ -17,7 +17,7 @@ Educational project for [Social Robot](https://www.unibo.it/it/didattica/insegna
 * [Authors](#authors)
 
 ## Introduction
-The project is the development of an educational social robot 
+The project consists in the development of an educational social robot 
 to be used at home and/or school to support the learning of **deaf** people. 
 In particular, this is a "gamification" project that 
 allows users to learn the **Italian Sign Language (ISL)**  through 
@@ -31,18 +31,18 @@ Four main components have been identified to describe a sign:
 * **location**: place where the sign takes place (e.g. head, chest).
 * **hand configuration**: position of the involved hand parts in the sign. 
 * **hand orientation**: orientation of the hand parts involved in the sign (degrees).  
-* **movement**: how the movement of the sign is performed takes place (e.g. circular movement of the arm).
+* **movement**: how the movement for the sign is performed (e.g. circular movement of the arm).
 
-Using these components, it's possible to define new signs. 
-See [The Dictionary](#the-dictionary) section to find out how 
+Using only these four components, it's possible to define a sign! 
+(See [The Dictionary](#the-dictionary) section to find out how 
 you can define a sign).
 
 The **location** is also used to improve the interaction with the user. 
-The place of execution of a sign (i.e location) is influenced by its 
-category (e.g. verbs that refer to an emotion are executed near the chest). 
+The place of execution of a sign is influenced by its 
+category. For example, verbs that refer to an emotion are executed near the chest. 
 The robot uses this categorization to propose verbs that have the same 
 location as the verb he chooses.
-    
+
 For more info about this project see the [project report](#).
 
 ## Getting Started
@@ -78,7 +78,7 @@ You can run the project following these steps:
 
 ## The Dictionary
 [The dictionary](./sign_dictionary.json) is where signs are defined. 
-It is a json file and with following format:
+It is a `.json` file with following format:
 ```
 {
   "name_sign": [
