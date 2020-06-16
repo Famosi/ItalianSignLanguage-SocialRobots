@@ -226,10 +226,10 @@ Here is an example of `.motion` file:
 00:01:200,Pose7,-0.2,-1.2
 00:01:400,Pose8,+0.1,-1.2
 ```
-The **first line** defines that this is a `#WEBOTS_MOTION` file that uses the `V1.0` version.
+The **first line** (`#WEBOTS_MOTION,V1.0,[ACTUATOR]`) defines that this is a `#WEBOTS_MOTION` file that uses the `V1.0` version.
 Then follows a declaration of interested actuators (in this case, `LShoulderRoll` and `LElbowRoll`).
 
-Each one of the other lines defines, the name of the `pose` and `values` that the corespondent actuators has at that `time`.
+Each of the other lines (`min:sec:millisec,Pose*,[VALUE]`) defines that, at time `min:sec:millisec`, the pose `pose` has the value `[VALUE]` for the corespondent actuator.
 In the example above, we have that: 
 * at time `00:00:000`, `LShoulderRoll` has the value `0.1` and `LElbowRoll` has the value `-1.3`.
 * at time `00:00:200`, `LShoulderRoll` has the value `-0.1` and `LElbowRoll` has the value `-1.45`.
