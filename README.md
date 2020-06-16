@@ -105,20 +105,39 @@ It is a `.json` file with following format:
 **Each sign has two entries:**
 The first one (#RIGHT-SIDE) defines how the **right** side (e.g. right hand, right shoulder, etc.) 
 of the robot performs the sign, while the second one (#LEFT-SIDE) is related to the **left** side.
+**The right and left definitions are independent!**
+
+Here is an explanation of each parameter:
+* `location`: **string** - where the sign take place. 
+* `hand_configuration`: **string** - the shape of the hand. (**string**)
+* `hand_orientation`: **int** - where the wrist is facing. This value is expressed in degrees **from -180 (facing the listener) to +180 (facing the robot)**. (**int**)
+* `movement`: **\[string\]** - what type of movement must be executed. It's possible to add more than one `movement_value`. 
+if that's the case, they are executed with their definition order.
+
+
 
 **NB:**
-Each entry (Left and Right) has 4 parameters. 
+* Each entry (Left and Right) has 4 parameters. 
 Their values are the name of the related `.motion` file and **it must be defined**. 
 Every parameter has is own directory ([./motions/\[parameter\]](./motions)) with his motions.
 Please, see the [Motions](#motions) section
 to check available motions and find out how you can add new ones!
+* The *order* of parameter declaration **matters**!! They are executed in the order they are defined. 
+For example, if you have this order:
+```
+...{
+"location": location_value,
+"hand_configuration": hand_configuration_value,
+"hand_orientation": hand_orientation_value,
+"movement": [movement_value_1, movement_value_2, ..., movement_value_n]
+}...
+```
+the robot execute the sign in this order: 
+* place the arms in the correct `location`.
+* moves hand actuators to the `hand_configuration`.
+* rotate the wrist by `hand_orientation` degrees.
+* perform the `movement`
 
-Here is an explanation of each parameter:
-* `location`: where the sign take place. (**string**).
-* `hand_configuration`: the shape of the hand. (**string**).
-* `hand_orientation`: where the wrist is facing. This value is expressed in degrees **from -180 (facing the listener) to +180 (facing the robot)**. (**int**)
-* `movement`: what type of movement must be executed (**ArrayOf<string>**). It's possible to add more than one `movement_value`. 
-if that's the case, they are executed with their definition order. 
 
 ### Available Signs
 The signs for the following verbs are already defined in the [sing dictionary](./sign_dictionary.json):
