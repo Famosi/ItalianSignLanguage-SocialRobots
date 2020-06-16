@@ -12,8 +12,11 @@ Educational project for [Social Robot](https://www.unibo.it/it/didattica/insegna
     * [Install](#install)
     * [Run](#run)
 * [The Dictionary](#the-dictionary)
+    * [Available signs](#available-signs)
     * [How to add new signs](#how-to-add-new-signs)
 * [Motions](#motions)
+    * [Available motions](#available-motions)
+    * [How to add new motions](#how-to-add-new-motions)
 * [Authors](#authors)
 
 ## Introduction
@@ -117,6 +120,7 @@ Here is an explanation of each parameter:
 * `movement`: what type of movement must be executed (**ArrayOf<string>**). It's possible to add more than one `movement_value`. 
 if that's the case, they are executed with their definition order. 
 
+### Available Signs
 The signs for the following verbs are already defined in the [sing dictionary](./sign_dictionary.json):
 * Mental Activity (**Head** Location):
     * Think 
