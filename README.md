@@ -1,4 +1,7 @@
 # NAO Robot - Italian Sign Language
+Educational project for [Social Robot](https://www.unibo.it/it/didattica/insegnamenti/insegnamento/2019/432427) university course at University of Bologna.
+
+**NAO-ISL DEMO**
 
 <img alt="demo" width="700" height="350" src="./media/gifs/think-nao-gt.gif">
 
