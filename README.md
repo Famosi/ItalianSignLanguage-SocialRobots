@@ -37,24 +37,7 @@ The **location** is also used to improve the interaction with the user.
 The place of execution of a sign (i.e location) is influenced by its 
 category (e.g. verbs that refer to an emotion are executed near the chest). 
 The robot uses this categorization to propose verbs that have the same 
-location as the verb he chooses. For example, if the user chooses the verb 
-"to think", the robot will execute that verb and suggest to the user that the verb 
-"to reason" is executed in the same location explain that both verbs 
-are referring to a mental activity.
-
-The signs for the following verbs are already defined in the [sing dictionary](./sign_dictionary.json):
-* Mental Activity (**Head** Location):
-    * Think 
-    * Know 
-    * Remember
-    * Forget
-    * Reason 
-* Emotions (**Chest** Location):
-    * Angry
-    * Jealousy
-    * Trust 
-    * Envy
-    * Love
+location as the verb he chooses.
     
 For more info about this project see the [project report](#).
 
@@ -90,6 +73,82 @@ You can run the project following these steps:
 **NB: The robot waits for pressed key. Make sure the 3D window of [Webots](https://cyberbotics.com) is selected and the simulation is running.**
 
 ## The Dictionary
+[The dictionary](./sign_dictionary.json) is a json file where the signs are defined. 
+It has the following format:
+```
+{
+  "verb": [
+    # RIGHT
+    {
+      "location": location,
+      "hand_configuration": hand_configuration,
+      "hand_orientation": hand_orientation,
+      "movement": [movement_1, movement_2, ..., movement_n]
+    },
+    # LEFT
+    {
+      "location": location,
+      "hand_configuration": hand_configuration,
+      "hand_orientation": hand_orientation,
+      "movement": [movement_1, movement_2, ..., movement_n]
+    }
+  ],
+  .....
+}
+```
+
+The signs for the following verbs are already defined in the [sing dictionary](./sign_dictionary.json):
+* Mental Activity (**Head** Location):
+    * Think 
+    * Know 
+    * Remember
+    * Forget
+    * Reason 
+* Emotions (**Chest** Location):
+    * Angry
+    * Jealousy
+    * Trust 
+    * Envy
+    * Love
+
+### How to add new signs
+**Add a new sign defintion to the [dictionary](./sign_dictionary.json)**:
+* open the [sing dictionary.json](./sign_dictionary.json) file.
+* copy and paste this code fragment:
+```
+"name_sign": [
+    {
+      "location": location_value,
+      "hand_configuration": hand_configuration_value,
+      "hand_orientation": hand_orientation_value,
+      "movement": [movement_value_1, movement_value_2, ..., movement_value_n]
+    },
+    {
+      "location": location_value,
+      "hand_configuration": hand_configuration_value,
+      "hand_orientation": hand_orientation_value,
+      "movement": [movement_value_1, movement_value_2, ..., movement_value_n]
+    }
+  ]
+```
+* edit `name_sign` and `parameters_values` with the corresponding ones.
+
+**Assign a key to the new defined sign**:
+* open the [controlle_lis.py](./controllers/controller_lis/controller_lis.py) file.
+* uncomment [this code](https://github.com/FaMoSi/SocialRobot-ISL/blob/59b83af3e238a5d30099c847586b834ccf9cc7a4/controllers/controller_lis/controller_lis.py#L216):
+```
+"""
+   if key == ord('NEW_KEY'):
+     input = "new_sign"
+     self.execute_sign(data[input])
+"""
+```
+* replace:
+    * `NEW_KEY` with the **new key** you want to be pressed (**Uppercase letter**) 
+    * `new_sign` with the new `name_sign` you defined in the [dictionary](./sign_dictionary.json)
+
+**Now you can perform the new sign by following the instructions in the [Getting Started](#getting-started) section.
+
 
 ## Motions
 
