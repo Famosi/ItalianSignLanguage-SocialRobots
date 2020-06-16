@@ -214,7 +214,7 @@ class Nao(Robot):
                     input = "piacere"
                     self.execute_sign(data[input])
                 """
-                if key == ord('KEY'):
+                if key == ord('NEW_KEY'):
                     input = "new_sign"
                     self.execute_sign(data[input])
                 """
