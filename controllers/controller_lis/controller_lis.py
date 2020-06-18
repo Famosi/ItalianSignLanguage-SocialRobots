@@ -210,9 +210,6 @@ class Nao(Robot):
                 if key == ord('G'):
                     input = "gelosia"
                     self.execute_sign(data[input])
-                if key == ord('V'):
-                    input = "piacere"
-                    self.execute_sign(data[input])
                 """
                 if key == ord('NEW_KEY'):
                     input = "new_sign"
