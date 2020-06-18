@@ -155,7 +155,7 @@ The signs for the following verbs are already defined in the [sing dictionary](.
     * Love
 
 ### How to add new signs
-#### Let's add a new sign defintion to the [dictionary](./sign_dictionary.json)**:
+#### Let's add a new sign defintion to the [dictionary](./sign_dictionary.json):
 * **open** the [sing dictionary.json](./sign_dictionary.json) file.
 * **copy and paste** this code fragment:
 ```
