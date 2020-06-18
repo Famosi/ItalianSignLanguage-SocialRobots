@@ -125,13 +125,13 @@ class Nao(Robot):
         if data[0] is not None and data[1] is not None:
             dx = data[0]
             sx = data[1]
-            #contollare se dx e sx hanno lo stesso ordine
+            # contollare se dx e sx hanno lo stesso ordine
             Sign(
                 self,
                 'L_R',
                 [dx['location'], sx['location']],
-                [dx['configuration'], sx['configuration']],
-                [dx['orientation'], sx['orientation']],
+                [dx['hand_configuration'], sx['hand_configuration']],
+                [dx['hand_orientation'], sx['hand_orientation']],
                 [dx['movement'], sx['movement']],
                 dx.keys()
             ).perform_sign()
@@ -142,8 +142,8 @@ class Nao(Robot):
                 self,
                 'R',
                 [dx['location']],
-                [dx['configuration']],
-                [dx['orientation']],
+                [dx['hand_configuration']],
+                [dx['hand_orientation']],
                 dx['movement'],
                 dx.keys()
             ).perform_sign()
@@ -154,8 +154,8 @@ class Nao(Robot):
                 self,
                 'L',
                 [sx['location']],
-                [sx['configuration']],
-                [sx['orientation']],
+                [sx['hand_configuration']],
+                [sx['hand_orientation']],
                 sx['movement'],
                 sx.keys()
             ).perform_sign()
