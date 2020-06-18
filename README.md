@@ -197,25 +197,32 @@ if key == ord('NEW_KEY'):
 
 ## Motions
 In this section are presented, for each parameter (location, hand_configuration, hand_orientation, movement), 
-what's the nomenclature pattern for theirs available `motions`. 
-You can also use this section to check available motions and combine them to define new signs (see [How to add new signs](#how-to-add-new-signs)).
+what's the nomenclature pattern for theirs **available `motions`**. 
 
 In case you'll add new motion, it's highly recommended to use the same pattern when naming the file `.motion`,
 in order to maintain a consistent nomenclature (see [How to add new motions](#how-to-add-new-motions)).
 
 ### Available Motions
 <details>
-<summary><b><i>configuration</i></b></summary>
+<summary><b><i>hand_configuration</i></b></summary>
 The <b>configuration</b> motions refer to specific <b>hand</b> configurations.
 Their names can be <b>figurative</b> or <b>explicative</b>. 
 <br>
-To avoid confusion, here are shown the <b>configurations</b> for the <b>figurative</b> names:
+To avoid confusion, here are shown the configurations for the <b>figurative</b> names:
 <br>
 <br>
 
 Beak            |  Scratch
 :-------------------------:|:-------------------------:
 ![Beak](media/motions/beak.png)  |  ![Scratch](media/motions/scratch.png)
+<br>
+<br>
+
+Pattern for <b>explicative</b> names:
+```
+[open/close]_[phalanges]_[R/L].motion
+```
+This means: "for the **Right/Left** hand, the phalanges **phalanges** are **open/close**"
 
 
 </details>
@@ -223,14 +230,53 @@ Beak            |  Scratch
 
 <details>
 <summary><b><i>location</i></b></summary>
+The <b>location</b> motions refer to where the sign takes place.
+Their names are <b>explicative</b>. 
+
+Pattern for <b>explicative</b> names:
+```
+[body_part]_[fornt/side]_[R/L].motion
+```
+This means: "for the **Right/Left** arm, the sign takes place in **front/side** of the **body_part**"
 </details>
 
 <details>
 <summary><b><i>movement</i></b></summary>
+The <b>movement</b> motions refer to how the sign is performed.
+Their names can be <b>figurative</b> or <b>explicative</b>.
+
+The only <b>figurative</b> name is used for the `rest_position`. This is the neutral position of the robot:
+
+<img src="media/motions/rest_position.png" alt="drawing" width="194" height="194"/>
+<br>
+<br>
+Pattern for <b>explicative</b> names in case the involved body part is **hand**:
+```
+hand_[phalanges]_[type_of_movement]_[R/L].motion
+```
+This means: "for the **Right/Left** hand, the phalanges **phalanges** perform the movement **type_of_movement**
+
+Pattern for <b>explicative</b> names in general:
+```
+[body_part]_[type_of_movement]_[R/L].motion
+```
+This means: "the **Right/Left** **body_part** performs the movement **type_of_movement**
+
 </details>
 
 <details>
-<summary><b><i>orientation</i></b></summary>
+<summary><b><i>hand_orientation</i></b></summary>
+The <b>hand_orientation</b> motions refer to specific <b>hand_orientations</b>.
+Their names are <b>explicative</b>.
+
+Pattern for <b>explicative</b> names:
+```
+[Degree]_[R/L].motion
+```
+This means: "the **Right/Left** hand (wrist), has the orientation of **Degree** degrees.
+* **+**\[degree\]: facing the robot.
+* **-**\[degree\]: facing the listener.
+
 </details>
 
 ### How to add new motions
