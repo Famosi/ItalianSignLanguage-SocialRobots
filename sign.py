@@ -27,11 +27,11 @@ class Sign:
         self.rest_position()
 
     def get_settings(self, param):
-        if param == "configuration":
+        if param == "hand_configuration":
             return ["Configuration", path.path_motions_configuration, "static", self.configuration]
         if param == "location":
             return ["Location", path.path_motions_location, "static", self.location]
-        if param == "orientation":
+        if param == "hand_orientation":
             return ["Orientation", path.path_motions_orientation, "static", self.orientation]
         if param == "movement":
             return ["Movement", path.path_motions_movement, "dynamic", self.movement]
