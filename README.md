@@ -46,7 +46,7 @@ category. For example, verbs that refer to an emotion are executed near the ches
 The robot uses this categorization to propose verbs that have the same 
 location as the verb he chooses.
 
-For more info about this project see the [project report](#).
+For more info about this project see the [project report](#https://docs.google.com/document/d/1m6vXoOU6egTS8wqGPw0tCY2PNoAa5-cMNVSIy8bD4r8/edit?usp=sharing).
 
 ## Getting Started
 ### Prerequisites
@@ -122,7 +122,7 @@ Their values are the name of the related `.motion` file and **it must be defined
 Every parameter has is own directory ([./motions/\[parameter\]](./motions)) with his motions.
 Please, see the [Motions](#motions) section
 to check available motions and find out how you can add new ones!
-* The *order* of parameter declaration **matters**!! They are executed in the order they are defined. 
+* The *order* of parameters declaration **matters**!! They are executed in the order they are defined. 
 For example, if you have this order:
 ```
 ...{
@@ -252,7 +252,7 @@ Here is an example of `.motion` file:
 The **first line** (`#WEBOTS_MOTION,V1.0,[ACTUATOR]`) defines that this is a `#WEBOTS_MOTION` file that uses the `V1.0` version.
 Then follows a declaration of interested actuators (in this case, `LShoulderRoll` and `LElbowRoll`).
 
-Each of the other lines (`min:sec:millisec,Pose*,[VALUE]`) defines that, at time `min:sec:millisec`, the pose `pose` has the value `[VALUE]` for the corespondent actuator.
+Each of the other lines (`min:sec:millisec,Pose*,+/-Value`) defines that, at time `min:sec:millisec`, the pose `Pose*` has the value `+/-Value` for the corespondent actuator.
 In the example above, we have that: 
 * at time `00:00:000`, `LShoulderRoll` has the value `0.1` and `LElbowRoll` has the value `-1.3`.
 * at time `00:00:200`, `LShoulderRoll` has the value `-0.1` and `LElbowRoll` has the value `-1.45`.
@@ -260,7 +260,7 @@ In the example above, we have that:
 
 If you want to **add a new motion**, follow these steps:
 * **create** a new file `[name_of_the_motion].motion` inside the **corespondent directory**. 
-For example, if you want to add a new `hand_configuration` motion, create the `.motion` file in [./motions/configuration](./motions/configuration)
+For example, if you want to add a new `hand_configuration` motion, create the `.motion` file in [./motions/hand_configuration](motions/hand_configuration)
 * **copy and paste** this code fragment:
 ```
 #WEBOTS_MOTION,V1.0,[ACTUATOR_1],[ACTUATOR_2],...,[ACTUATOR_N]
@@ -273,3 +273,4 @@ For example, if you want to add a new `hand_configuration` motion, create the `.
 
 ## Authors
 **[Simone Faggi](https://github.com/FaMoSi)** & **[Pietro Lami](https://github.com/PietroLami)**
+
