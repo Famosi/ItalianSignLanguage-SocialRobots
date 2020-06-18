@@ -253,24 +253,24 @@ Pattern for <b>explicative</b> names in case the involved body part is **hand**:
 ```
 hand_[phalanges]_[type_of_movement]_[R/L].motion
 ```
-This means: "for the **Right/Left** hand, the phalanges **phalanges** perform the movement **type_of_movement**
+This means: "for the **Right/Left** hand, the phalanges **phalanges** perform the movement **type_of_movement**"
 
 Pattern for <b>explicative</b> names in general:
 ```
 [body_part]_[type_of_movement]_[R/L].motion
 ```
-This means: "the **Right/Left** **body_part** performs the movement **type_of_movement**
+This means: "the **Right/Left** **body_part** performs the movement **type_of_movement**"
 
 </details>
 
 <details>
 <summary><b><i>hand_orientation</i></b></summary>
-The <b>hand_orientation</b> motions refer to specific <b>hand_orientations</b>.
+The <b>hand_orientation</b> motions refer to specific rotation angle of the **wrist**.
 Their names are <b>explicative</b>.
 
 Pattern for <b>explicative</b> names:
 ```
-[Degree]_[R/L].motion
+[+/-Degree]_[R/L].motion
 ```
 This means: "the **Right/Left** hand (wrist), has the orientation of **Degree** degrees.
 * **+**\[degree\]: facing the robot.
