@@ -74,7 +74,7 @@ You can run the project following these steps:
 * **Open** [Webots](https://cyberbotics.com).
 * From the menu bar **click** on `File -> Open World...`.
 * **Select and open** the [LIS-Nao.wbt](./worlds/LIS-Nao.wbt) world file. You can find it in `~/SocialRobot-ISL/worlds/LIS-Nao.wbt`
-* **Click** the "Play" button.
+* **Click** the ["Play" button](https://cyberbotics.com/wwi/R2019a/help.php) of Webots.
 * **Follow the instructions** shown in the console.
 
 **NB: The robot waits for pressed key. Make sure the 3D window of [Webots](https://cyberbotics.com) is selected and the simulation is running.**
