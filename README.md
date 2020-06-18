@@ -248,8 +248,7 @@ Their names can be <b>figurative</b> or <b>explicative</b>.
 The only <b>figurative</b> name is used for the `rest_position`. This is the neutral position of the robot:
 
 <img src="media/motions/rest_position.png" alt="drawing" width="194" height="194"/>
-<br>
-<br>
+
 Pattern for <b>explicative</b> names in case the involved body part is **hand**:
 ```
 hand_[phalanges]_[type_of_movement]_[R/L].motion
