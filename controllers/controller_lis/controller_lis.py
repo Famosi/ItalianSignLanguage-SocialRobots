@@ -18,6 +18,8 @@ import sys
 sys.path.append('../../')
 
 import json
+from random import seed
+from random import randint
 import utils as path
 from controller import Robot, Keyboard, Motion
 from sign import Sign
@@ -113,12 +115,57 @@ class Nao(Robot):
         # inserire gesto scelto a caso
 
         print(
-            'Press y for a casual sign:' + input + ' with the same location: ' + location + ', another key to not perform the sign')
+            'Press y for a casual sign: ' + input + ' with the same location: ' + location + ', another key to not perform the sign')
         key = self.keyboard.getKey()
         if key == ord('Y'):
             self.execute_sign(data[input])
         else:
             pass
+
+    def getCasualSignAndExecute(self, data, sign, signName):
+        # togliere da data sign
+        toAdd = data.pop(signName)
+        final = dict()
+        # creo location per dx&sx
+        if sign[0] is not None and sign[1] is not None:
+            location = [sign[0]["location"], sign[1]["location"]]
+        # creo location per dx
+        elif sign[0] is not None:
+            location = [sign[0]["location"]]
+        # creo location per sx
+        else:
+            location = [sign[1]["location"]]
+
+        for el in data.keys():
+            # per dx & sx
+            if data[el][0] is not None and data[el][1] is not None:
+                if data[el][0]["location"] == location[0] and data[el][1]["location"] == location[1]:
+                    final[el] = data[el]
+            # per dx
+            elif data[el][0] is not None:
+                if data[el][0]["location"] == location[0]:
+                    final[el] = data[el]
+            # per sx
+            elif data[el][1] is not None:
+                if data[el][1]["location"] == location[1]:
+                    final[el] = data[el]
+        # scelgo un numero casuale fra 0 e lunghezza final.keys()
+        # prendo elemento corrsipondente nella lista
+        # nel caso eseguo l'elemeto nella lista
+        candidate = final.keys()
+        if len(candidate) == 0:
+            data[signName] = toAdd
+            return
+        num = randint(0, len(candidate)-1)
+        input = candiate[num]
+        print('Press y for a casual sign:' + input + ' with the same location: '.join(location) + ', another key to not perform the sign')
+        key = self.keyboard.getKey()
+        if key == ord('Y'):
+            self.execute_sign(data[input])
+        else:
+            pass
+        data[signName] = toAdd
+        return
 
     def execute_sign(self, data):
         # if DX & SX
@@ -228,4 +275,5 @@ class Nao(Robot):
 
 # create the Robot instance and run main loop
 robot = Nao()
+seed(1)
 robot.run()
