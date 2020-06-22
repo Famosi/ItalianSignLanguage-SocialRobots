@@ -24,6 +24,7 @@ import utils as path
 from controller import Robot, Keyboard, Motion
 from sign import Sign
 from error import Error
+from time import sleep
 
 
 class Nao(Robot):
@@ -106,28 +107,14 @@ class Nao(Robot):
         self.keyboard = self.getKeyboard()
         self.keyboard.enable(5 * self.timeStep)
 
-    def ask(self, data, location):
-        for el in data:
-            for e in data[el][0]:
-                if e == 'location' and data[el][0][e] == location:
-                    # prenderne a caso 1 di questi
-                    pass
-        # inserire gesto scelto a caso
-
-        print(
-            'Press y for a casual sign: ' + input + ' with the same location: ' + location + ', another key to not perform the sign')
-        key = self.keyboard.getKey()
-        if key == ord('Y'):
-            self.execute_sign(data[input])
-        else:
-            pass
-
-    def getCasualSignAndExecute(self, data, sign, signName):
+    def getCasualSign(self, data, sign, signName):
         # togliere da data sign
         toAdd = data.pop(signName)
         final = dict()
+        l_r = False
         # creo location per dx&sx
         if sign[0] is not None and sign[1] is not None:
+            l_r = True
             location = [sign[0]["location"], sign[1]["location"]]
         # creo location per dx
         elif sign[0] is not None:
@@ -138,7 +125,7 @@ class Nao(Robot):
 
         for el in data.keys():
             # per dx & sx
-            if data[el][0] is not None and data[el][1] is not None:
+            if data[el][0] is not None and data[el][1] is not None and l_r:
                 if data[el][0]["location"] == location[0] and data[el][1]["location"] == location[1]:
                     final[el] = data[el]
             # per dx
@@ -149,6 +136,7 @@ class Nao(Robot):
             elif data[el][1] is not None:
                 if data[el][1]["location"] == location[1]:
                     final[el] = data[el]
+
         # scelgo un numero casuale fra 0 e lunghezza final.keys()
         # prendo elemento corrsipondente nella lista
         # nel caso eseguo l'elemeto nella lista
@@ -156,16 +144,13 @@ class Nao(Robot):
         if len(candidate) == 0:
             data[signName] = toAdd
             return
+
         num = randint(0, len(candidate)-1)
-        input = candiate[num]
-        print('Press y for a casual sign:' + input + ' with the same location: '.join(location) + ', another key to not perform the sign')
-        key = self.keyboard.getKey()
-        if key == ord('Y'):
-            self.execute_sign(data[input])
-        else:
-            pass
+        input = candidate[num]
+
         data[signName] = toAdd
-        return
+
+        return input
 
     def execute_sign(self, data):
         # if DX & SX
@@ -222,48 +207,54 @@ class Nao(Robot):
         # as a dictionary
         data = json.load(f)
 
+        old_sign = None
+
         # Main loop
         while True:
             key = self.keyboard.getKey()
-
+            sign = None
             try:
                 if key == ord('A'):
-                    input = "amare"
-                    self.execute_sign(data[input])
+                    sign = "amare"
                 if key == ord('D'):
-                    input = "dimenticare"
-                    self.execute_sign(data[input])
+                    sign = "dimenticare"
                 if key == ord('P'):
-                    input = "pensare"
-                    self.execute_sign(data[input])
+                    sign = "pensare"
                 if key == ord('I'):
-                    input = "invidia"
-                    self.execute_sign(data[input])
+                    sign = "invidia"
                 if key == ord('C'):
-                    input = "conoscere"
-                    self.execute_sign(data[input])
+                    sign = "conoscere"
                 if key == ord('F'):
-                    input = "fidarsi"
-                    self.execute_sign(data[input])
+                    sign = "fidarsi"
                 if key == ord('R'):
-                    input = "ricordare"
-                    self.execute_sign(data[input])
+                    sign = "ricordare"
                 if key == ord('W'):
-                    input = "ragionare"
-                    self.execute_sign(data[input])
+                    sign = "ragionare"
                 if key == ord('Q'):
-                    input = "arrabbiarsi"
-                    self.execute_sign(data[input])
+                    sign = "arrabbiarsi"
                 if key == ord('G'):
-                    input = "gelosia"
-                    self.execute_sign(data[input])
+                    sign = "gelosia"
                 """
                 if key == ord('NEW_KEY'):
                     input = "new_sign"
                     self.execute_sign(data[input])
                 """
+                if key == ord('Y') and old_sign is not None:
+                    second = self.getCasualSign(data, data[old_sign], old_sign)
+                    old_sign = None
+                    self.execute_sign(data[second])
+                    self.printHelp()
+
                 if key == ord('H'):
                     self.printHelp()
+                    sign = None
+
+                if sign is not None:
+                    self.execute_sign(data[sign])
+                    old_sign = sign
+                    sign = None
+                    print("Press \"y\" for another sign with the same location")
+
             except KeyError:
                 Error().no_verb()
 
@@ -275,5 +266,4 @@ class Nao(Robot):
 
 # create the Robot instance and run main loop
 robot = Nao()
-seed(1)
 robot.run()
