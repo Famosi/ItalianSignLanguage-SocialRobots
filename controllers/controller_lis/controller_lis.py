@@ -18,6 +18,7 @@ import sys
 sys.path.append('../../')
 
 import json
+from collections import OrderedDict
 from random import seed
 from random import randint
 import utils as path
@@ -107,9 +108,10 @@ class Nao(Robot):
         self.keyboard = self.getKeyboard()
         self.keyboard.enable(5 * self.timeStep)
 
-    def getCasualSign(self, data, sign, signName):
+    def getCasualSign(self):
+        sign = self.data[self.old_sign]
         # togliere da data sign
-        toAdd = data.pop(signName)
+        toAdd = self.data.pop(self.signName)
         final = dict()
         l_r = False
         # creo location per dx&sx
@@ -123,32 +125,32 @@ class Nao(Robot):
         else:
             location = [sign[1]["location"]]
 
-        for el in data.keys():
+        for el in self.data.keys():
             # per dx & sx
-            if data[el][0] is not None and data[el][1] is not None and l_r:
-                if data[el][0]["location"] == location[0] and data[el][1]["location"] == location[1]:
-                    final[el] = data[el]
+            if self.data[el][0] is not None and self.data[el][1] is not None and l_r:
+                if self.data[el][0]["location"] == location[0] and self.data[el][1]["location"] == location[1]:
+                    final[el] = self.data[el]
             # per dx
-            elif data[el][0] is not None:
-                if data[el][0]["location"] == location[0]:
-                    final[el] = data[el]
+            elif self.data[el][0] is not None:
+                if self.data[el][0]["location"] == location[0]:
+                    final[el] = self.data[el]
             # per sx
-            elif data[el][1] is not None:
-                if data[el][1]["location"] == location[1]:
-                    final[el] = data[el]
+            elif self.data[el][1] is not None:
+                if self.data[el][1]["location"] == location[1]:
+                    final[el] = self.data[el]
 
         # scelgo un numero casuale fra 0 e lunghezza final.keys()
         # prendo elemento corrsipondente nella lista
         # nel caso eseguo l'elemeto nella lista
         candidate = final.keys()
         if len(candidate) == 0:
-            data[signName] = toAdd
+            self.data[self.signName] = toAdd
             return
 
         num = randint(0, len(candidate)-1)
         input = candidate[num]
 
-        data[signName] = toAdd
+        self.data[self.signName] = toAdd
 
         return input
 
@@ -204,10 +206,10 @@ class Nao(Robot):
         f = open(path.path_dictionary)
 
         # returns JSON object
-        # as a dictionary
-        data = json.load(f)
+        # as a order dictionary
+        self.data = json.load(f,object_pairs_hook=OrderedDict)
 
-        old_sign = None
+        self.old_sign = None
 
         # Main loop
         while True:
@@ -239,10 +241,10 @@ class Nao(Robot):
                     input = "new_sign"
                     self.execute_sign(data[input])
                 """
-                if key == ord('Y') and old_sign is not None:
-                    second = self.getCasualSign(data, data[old_sign], old_sign)
-                    old_sign = None
-                    self.execute_sign(data[second])
+                if key == ord('Y') and self.old_sign is not None:
+                    second = self.getCasualSign()
+                    self.old_sign = None
+                    self.execute_sign(self.data[second])
                     self.printHelp()
 
                 if key == ord('H'):
@@ -250,9 +252,8 @@ class Nao(Robot):
                     sign = None
 
                 if sign is not None:
-                    self.execute_sign(data[sign])
-                    old_sign = sign
-                    sign = None
+                    self.execute_sign(self.data[sign])
+                    self.old_sign = sign
                     print("Press \"y\" for another sign with the same location")
 
             except KeyError:
