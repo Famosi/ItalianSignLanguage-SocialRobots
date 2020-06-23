@@ -24,3 +24,10 @@ class Error:
             "Bad definition of requested verb in dictionary!\n"
             "Check if all the parameters are defined and their order of definition\n"
         )
+
+    def bad_time_definition(self):
+        print(
+            "[ERROR]:"
+            "Bad TIME definition of requested verb in dictionary!\n"
+            "Check \"speed\" parameter\n"
+        )

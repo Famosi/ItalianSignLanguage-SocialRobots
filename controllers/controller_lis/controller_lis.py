@@ -161,7 +161,8 @@ class Nao(Robot):
                     if len(self.data[sign][idx]) != self.number_of_params or (not param.startswith("location")
                             and not param.startswith("hand_configuration")
                             and not param.startswith("hand_orientation")
-                            and not param.startswith("movement")):
+                            and not param.startswith("movement")
+                            and not param.startswith("speed")):
                         self.bad_def = True
                         Error().bad_definition()
                         return False
@@ -184,6 +185,7 @@ class Nao(Robot):
                         [dx['hand_configuration'], sx['hand_configuration']],
                         [dx['hand_orientation'], sx['hand_orientation']],
                         [dx['movement'], sx['movement']],
+                        [dx['speed'], sx['speed']],
                         dx.keys()
                     ).perform_sign()
                 else:
@@ -200,6 +202,7 @@ class Nao(Robot):
                     [dx['hand_configuration']],
                     [dx['hand_orientation']],
                     dx['movement'],
+                    [dx['speed']],
                     dx.keys()
                 ).perform_sign()
             # if SX
@@ -213,6 +216,7 @@ class Nao(Robot):
                     [sx['hand_configuration']],
                     [sx['hand_orientation']],
                     sx['movement'],
+                    [sx['speed']],
                     sx.keys()
                 ).perform_sign()
 
@@ -222,7 +226,7 @@ class Nao(Robot):
     def __init__(self):
         Robot.__init__(self)
         # initialize stuff
-        self.number_of_params = 4
+        self.number_of_params = 5
         self.findAndEnableDevices()
 
     def print_interaction(self, sign):

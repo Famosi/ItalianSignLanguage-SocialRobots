@@ -4,7 +4,8 @@
       "hand_configuration": "beak",
       "location": "head_side",
       "hand_orientation": "+45",
-      "movement": ["arm_circular_fast"]
+      "movement": ["arm_circular"],
+      "speed": 1
     },
     null
   ],
@@ -13,7 +14,8 @@
       "location": "head_side",
       "hand_configuration": "beak",
       "hand_orientation": "-90",
-      "movement": ["hand_first_open_close"]
+      "movement": ["hand_first_open_close"],
+      "speed": null
     },
     null
   ],
@@ -22,7 +24,8 @@
       "location": "chest_front",
       "hand_configuration": "scratch",
       "hand_orientation": "+45",
-      "movement": ["arm_circular_slow"]
+      "movement": ["arm_circular"],
+      "speed": 5
     },
     null
   ],
@@ -31,13 +34,15 @@
       "location": "chest_front",
       "hand_configuration": "open_all",
       "hand_orientation": "+45",
-      "movement": ["arm_from_robot_to_user"]
+      "movement": ["arm_from_robot_to_user"],
+      "speed": 0.8
     },
     {
       "location": "chest_front",
       "hand_configuration": "open_all",
       "hand_orientation": "+45",
-      "movement": ["arm_from_robot_to_user"]
+      "movement": ["arm_from_robot_to_user"],
+      "speed": 0.8
     }
   ],
   "ricordare": [
@@ -45,7 +50,8 @@
       "location": "head_side",
       "hand_configuration": "open_all",
       "hand_orientation": "+90",
-      "movement": ["arm_from_robot_to_user"]
+      "movement": ["arm_from_robot_to_user"],
+      "speed": 0.5
     },
     null
   ],
@@ -54,13 +60,15 @@
       "location": "head_side",
       "hand_configuration": "open_all",
       "hand_orientation": "-45",
-      "movement": ["elbow_linear"]
+      "movement": ["elbow_linear"],
+      "speed": 1
     },
     {
       "location": "head_side",
       "hand_configuration": "open_all",
       "hand_orientation": "-45",
-      "movement": ["elbow_linear"]
+      "movement": ["elbow_linear"],
+      "speed": 1
     }
   ],
   "fidarsi": [
@@ -68,13 +76,15 @@
       "hand_configuration": "close_all",
       "hand_orientation": "+45",
       "location": "chest_front",
-      "movement": []
+      "movement": [],
+      "speed": 2
     },
     {
       "hand_configuration": "close_all",
       "hand_orientation": "+45",
       "location": "chest_front",
-      "movement": []
+      "movement": ["elbow_linear"],
+      "speed": 2
     }
   ],
   "dimenticare": [
@@ -82,7 +92,8 @@
       "location": "head_side",
       "hand_configuration": "close_all",
       "hand_orientation": "-45",
-      "movement": ["arm_linear", "hand_all_open_close"]
+      "movement": ["arm_linear", "hand_all_open_close"],
+      "speed": 1
     },
     null
   ],
@@ -91,13 +102,15 @@
       "location": "chest_side",
       "hand_configuration": "scratch",
       "hand_orientation": "-45",
-      "movement": ["elbow_linear"]
+      "movement": ["elbow_linear"],
+      "speed": 2
     },
     {
       "location": "chest_side",
       "hand_configuration": "scratch",
       "hand_orientation": "-45",
-      "movement": ["elbow_linear"]
+      "movement": ["elbow_linear"],
+      "speed": 2
     }
   ],
   "gelosia": [
@@ -105,7 +118,8 @@
       "location": "chest_front",
       "hand_configuration": "open_index",
       "hand_orientation": "-45",
-      "movement": ["arm_linear", "wrist_circular_fast"]
+      "movement": ["arm_linear", "wrist_circular"],
+      "speed": 1
     },
     null
   ]
