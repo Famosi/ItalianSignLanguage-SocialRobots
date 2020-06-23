@@ -73,7 +73,7 @@ That's all, everything is installed and you can run the NAO-ISL robot!
 You can run the project following these steps:
 * **Open** [Webots](https://cyberbotics.com).
 * From the menu bar **click** on `File -> Open World...`.
-* **Select and open** the [LIS-Nao.wbt](./worlds/LIS-Nao.wbt) world file. You can find it in `~/SocialRobot-ISL/worlds/LIS-Nao.wbt`
+* **Select and open** the [LIS-Nao.wbt](worlds/LIS-Nao-apartment.wbt) world file. You can find it in `~/SocialRobot-ISL/worlds/LIS-Nao.wbt`
 * **Click** the ["Play" button](https://cyberbotics.com/wwi/R2019a/help.php) of Webots.
 * **Follow the instructions** shown in the console.
 

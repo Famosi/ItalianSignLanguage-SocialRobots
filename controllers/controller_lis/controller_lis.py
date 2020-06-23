@@ -154,16 +154,13 @@ class Nao(Robot):
 
         return sign_same_location
 
-    def is_ordered(self, dx, sx):
-        return dx.keys() == sx.keys()
-
     def is_good_defined(self, sign):
         for idx, _ in enumerate(self.data[sign]):
             if self.data[sign][idx] is not None:
                 for param in self.data[sign][idx]:
-                    if len(self.data[sign][idx]) != 4 or (not param.startswith("location") \
-                            and not param.startswith("hand_configuration") \
-                            and not param.startswith("hand_orientation") \
+                    if len(self.data[sign][idx]) != self.number_of_params or (not param.startswith("location")
+                            and not param.startswith("hand_configuration")
+                            and not param.startswith("hand_orientation")
                             and not param.startswith("movement")):
                         self.bad_def = True
                         Error().bad_definition()
@@ -178,7 +175,7 @@ class Nao(Robot):
             if data[0] is not None and data[1] is not None:
                 dx = data[0]
                 sx = data[1]
-                if self.is_ordered(dx, sx):
+                if dx.keys() == sx.keys():
                     print("Performing \"" + sign + "\"...\n")
                     Sign(
                         self,
@@ -225,6 +222,7 @@ class Nao(Robot):
     def __init__(self):
         Robot.__init__(self)
         # initialize stuff
+        self.number_of_params = 4
         self.findAndEnableDevices()
 
     def print_interaction(self, sign):
@@ -251,7 +249,7 @@ class Nao(Robot):
             "Do you want the robot performs another sign with the same location?"
             "\n[Y]: Yes"
             "\nPress any other defined key to perform the related sign")
-        print('--------------')
+        print('--------------\n')
 
     def run(self):
         self.printHelp()
