@@ -111,7 +111,7 @@ class Nao(Robot):
     def getCasualSign(self):
         sign = self.data[self.old_sign]
         # togliere da data sign
-        toAdd = self.data.pop(self.signName)
+        toAdd = self.data.pop(self.old_sign)
         final = dict()
         l_r = False
         # creo location per dx&sx
@@ -144,13 +144,13 @@ class Nao(Robot):
         # nel caso eseguo l'elemeto nella lista
         candidate = final.keys()
         if len(candidate) == 0:
-            self.data[self.signName] = toAdd
+            self.data[self.old_sign] = toAdd
             return
 
         num = randint(0, len(candidate)-1)
         input = candidate[num]
 
-        self.data[self.signName] = toAdd
+        self.data[self.old_sign] = toAdd
 
         return input
 
