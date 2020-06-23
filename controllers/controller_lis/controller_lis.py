@@ -154,58 +154,72 @@ class Nao(Robot):
 
         return sign_same_location
 
-    def check_order(self, dx, sx):
+    def is_ordered(self, dx, sx):
         return dx.keys() == sx.keys()
 
+    def is_good_defined(self, sign):
+        for idx, _ in enumerate(self.data[sign]):
+            if self.data[sign][idx] is not None:
+                for param in self.data[sign][idx]:
+                    if len(self.data[sign][idx]) != 4 or (not param.startswith("location") \
+                            and not param.startswith("hand_configuration") \
+                            and not param.startswith("hand_orientation") \
+                            and not param.startswith("movement")):
+                        self.bad_def = True
+                        Error().bad_definition()
+                        return False
+        return True
+
     def execute_sign(self, sign):
-        bad_def = False
+        self.bad_def = False
         # if DX & SX
         data = self.data[sign]
-        if data[0] is not None and data[1] is not None:
-            dx = data[0]
-            sx = data[1]
-            if self.check_order(dx, sx):
+        if self.is_good_defined(sign):
+            if data[0] is not None and data[1] is not None:
+                dx = data[0]
+                sx = data[1]
+                if self.is_ordered(dx, sx):
+                    print("Performing \"" + sign + "\"...\n")
+                    Sign(
+                        self,
+                        'L_R',
+                        [dx['location'], sx['location']],
+                        [dx['hand_configuration'], sx['hand_configuration']],
+                        [dx['hand_orientation'], sx['hand_orientation']],
+                        [dx['movement'], sx['movement']],
+                        dx.keys()
+                    ).perform_sign()
+                else:
+                    bad_def = True
+                    Error().bad_definition()
+            # if DX
+            elif data[0] is not None:
+                dx = data[0]
                 print("Performing \"" + sign + "\"...\n")
                 Sign(
                     self,
-                    'L_R',
-                    [dx['location'], sx['location']],
-                    [dx['hand_configuration'], sx['hand_configuration']],
-                    [dx['hand_orientation'], sx['hand_orientation']],
-                    [dx['movement'], sx['movement']],
+                    'R',
+                    [dx['location']],
+                    [dx['hand_configuration']],
+                    [dx['hand_orientation']],
+                    dx['movement'],
                     dx.keys()
                 ).perform_sign()
-            else:
-                bad_def = True
-                Error().bad_definition()
-        # if DX
-        elif data[0] is not None:
-            dx = data[0]
-            print("Performing \"" + sign + "\"...\n")
-            Sign(
-                self,
-                'R',
-                [dx['location']],
-                [dx['hand_configuration']],
-                [dx['hand_orientation']],
-                dx['movement'],
-                dx.keys()
-            ).perform_sign()
-        # if SX
-        elif data[1] is not None:
-            sx = data[1]
-            print("Performing \"" + sign + "\"...\n")
-            Sign(
-                self,
-                'L',
-                [sx['location']],
-                [sx['hand_configuration']],
-                [sx['hand_orientation']],
-                sx['movement'],
-                sx.keys()
-            ).perform_sign()
+            # if SX
+            elif data[1] is not None:
+                sx = data[1]
+                print("Performing \"" + sign + "\"...\n")
+                Sign(
+                    self,
+                    'L',
+                    [sx['location']],
+                    [sx['hand_configuration']],
+                    [sx['hand_orientation']],
+                    sx['movement'],
+                    sx.keys()
+                ).perform_sign()
 
-        if not bad_def and self.old_sign is None:
+        if not self.bad_def and self.old_sign is None:
             self.printHelp()
 
     def __init__(self):
@@ -239,7 +253,6 @@ class Nao(Robot):
             "\nPress any other defined key to perform the related sign")
         print('--------------')
 
-
     def run(self):
         self.printHelp()
         rest_position(self)
@@ -257,50 +270,48 @@ class Nao(Robot):
         while True:
             key = self.keyboard.getKey()
             sign = None
-            try:
-                if key == ord('A'):
-                    sign = "amare"
-                if key == ord('D'):
-                    sign = "dimenticare"
-                if key == ord('P'):
-                    sign = "pensare"
-                if key == ord('I'):
-                    sign = "invidia"
-                if key == ord('C'):
-                    sign = "conoscere"
-                if key == ord('F'):
-                    sign = "fidarsi"
-                if key == ord('R'):
-                    sign = "ricordare"
-                if key == ord('W'):
-                    sign = "ragionare"
-                if key == ord('Q'):
-                    sign = "arrabbiarsi"
-                if key == ord('G'):
-                    sign = "gelosia"
-                """
-                if key == ord('NEW_KEY'):
-                    input = "new_sign"
-                    self.execute_sign(input)
-                """
-                if key == ord('Y') and self.old_sign is not None:
-                    sign_same_location = self.getCasualSign()
-                    self.old_sign = sign_same_location
-                    self.execute_sign(sign_same_location)
-                    self.print_interaction(sign_same_location)
 
-                if key == ord('H'):
-                    self.printHelp()
-                    sign = None
+            if key == ord('A'):
+                sign = "amare"
+            if key == ord('D'):
+                sign = "dimenticare"
+            if key == ord('P'):
+                sign = "pensare"
+            if key == ord('I'):
+                sign = "invidia"
+            if key == ord('C'):
+                sign = "conoscere"
+            if key == ord('F'):
+                sign = "fidarsi"
+            if key == ord('R'):
+                sign = "ricordare"
+            if key == ord('W'):
+                sign = "ragionare"
+            if key == ord('Q'):
+                sign = "arrabbiarsi"
+            if key == ord('G'):
+                sign = "gelosia"
+            """
+            if key == ord('NEW_KEY'):
+                input = "new_sign"
+                self.execute_sign(input)
+            """
+            if key == ord('Y') and self.old_sign is not None:
+                self.bad_def = False
+                sign_same_location = self.getCasualSign()
+                self.old_sign = sign_same_location
+                self.execute_sign(sign_same_location)
+                self.print_interaction(sign_same_location)
 
-                if sign is not None:
-                    self.old_sign = None
-                    self.execute_sign(sign)
-                    self.old_sign = sign
-                    self.print_interaction(sign)
+            if key == ord('H'):
+                self.printHelp()
+                sign = None
 
-            except KeyError:
-                Error().no_verb()
+            if sign is not None:
+                self.old_sign = None
+                self.execute_sign(sign)
+                self.old_sign = sign
+                self.print_interaction(sign)
 
             if robot.step(self.timeStep) == -1:
                 # Closing file

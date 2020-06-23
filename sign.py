@@ -1,7 +1,7 @@
 from performer import Performer
 import utils as path
 from utils import rest_position
-
+from error import Error
 
 class Sign:
     def __init__(self, robot, l_r, location, configuration, orientation, movement, order):
@@ -17,6 +17,8 @@ class Sign:
     def perform_sign(self):
         for param in self.order:
             settings = self.get_settings(param)
+            if settings is None:
+                break
             Performer(settings[0], settings[1], self.robot, settings[2], settings[3], self.l_r)
         rest_position(self.robot)
 
@@ -29,8 +31,9 @@ class Sign:
             return ["Orientation", path.path_motions_orientation, "static", self.orientation]
         if param == "movement":
             return ["Movement", path.path_motions_movement, "dynamic", self.movement]
-        # Handle erroR!!!!
-        return ["Errore","ERRORE","Errore"]
+        # Handle error!!!!
+        Error().bad_definition()
+        return None
 
 
 

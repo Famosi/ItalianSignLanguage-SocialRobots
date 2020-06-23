@@ -14,12 +14,13 @@ class Error:
         print(
             "------\n"
             "[ERROR]: "
-            "Bad verb's definition for \"" + param + "\"! Check the dictionary!\n"
+            "Seems a motion is not defined for parameter: \"" + param +
+            "\"! Check the dictionary and ./motions directory!\n"
         )
 
     def bad_definition(self):
         print(
             "[ERROR]:"
             "Bad definition of requested verb in dictionary!\n"
-            "Check the order of parameter definition\n"
+            "Check if all the parameters are defined and their order of definition\n"
         )
