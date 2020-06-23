@@ -26,7 +26,7 @@ from controller import Robot, Keyboard, Motion
 from sign import Sign
 from error import Error
 from time import sleep
-
+from utils import rest_position
 
 class Nao(Robot):
     PHALANX_MAX = 8
@@ -55,8 +55,8 @@ class Nao(Robot):
         print('[Q]: Arrabbiarsi')
         print('[R]: Ricordare')
         print('[W]: Ragionare')
-        print('--------------')
         print('[H]: print this help message')
+        print('--------------')
 
     def findAndEnableDevices(self):
         # get the time step of the current world.
@@ -148,30 +148,40 @@ class Nao(Robot):
             return
 
         num = randint(0, len(candidate)-1)
-        input = candidate[num]
+        sign_same_location = candidate[num]
 
         self.data[self.old_sign] = toAdd
 
-        return input
+        return sign_same_location
 
-    def execute_sign(self, data):
+    def check_order(self, dx, sx):
+        return dx.keys() == sx.keys()
+
+    def execute_sign(self, sign):
+        bad_def = False
         # if DX & SX
+        data = self.data[sign]
         if data[0] is not None and data[1] is not None:
             dx = data[0]
             sx = data[1]
-            # contollare se dx e sx hanno lo stesso ordine
-            Sign(
-                self,
-                'L_R',
-                [dx['location'], sx['location']],
-                [dx['hand_configuration'], sx['hand_configuration']],
-                [dx['hand_orientation'], sx['hand_orientation']],
-                [dx['movement'], sx['movement']],
-                dx.keys()
-            ).perform_sign()
+            if self.check_order(dx, sx):
+                print("Performing \"" + sign + "\"...\n")
+                Sign(
+                    self,
+                    'L_R',
+                    [dx['location'], sx['location']],
+                    [dx['hand_configuration'], sx['hand_configuration']],
+                    [dx['hand_orientation'], sx['hand_orientation']],
+                    [dx['movement'], sx['movement']],
+                    dx.keys()
+                ).perform_sign()
+            else:
+                bad_def = True
+                Error().bad_definition()
         # if DX
         elif data[0] is not None:
             dx = data[0]
+            print("Performing \"" + sign + "\"...\n")
             Sign(
                 self,
                 'R',
@@ -184,6 +194,7 @@ class Nao(Robot):
         # if SX
         elif data[1] is not None:
             sx = data[1]
+            print("Performing \"" + sign + "\"...\n")
             Sign(
                 self,
                 'L',
@@ -194,20 +205,51 @@ class Nao(Robot):
                 sx.keys()
             ).perform_sign()
 
+        if not bad_def and self.old_sign is None:
+            self.printHelp()
+
     def __init__(self):
         Robot.__init__(self)
         # initialize stuff
         self.findAndEnableDevices()
 
+    def print_interaction(self, sign):
+        interaction = {
+            "chest": "The sign \"" + sign + "\" refers to an emotional state. Thus, it is performed near the chest",
+            "head": "The sign \"" + sign + "\" refers to a mental activity. Thus, it is performed near the head"
+        }
+
+        sign = self.data[sign]
+        location = None
+
+        if sign[0] is not None:
+            location = sign[0]["location"]
+        elif sign[1] is not None:
+            location = sign[1]["location"]
+
+        if location is not None:
+            if "chest" in location:
+                print(interaction["chest"])
+            elif "head" in location:
+                print(interaction["head"])
+        print('')
+        print(
+            "Do you want the robot performs another sign with the same location?"
+            "\n[Y]: Yes"
+            "\nPress any other defined key to perform the related sign")
+        print('--------------')
+
+
     def run(self):
         self.printHelp()
+        rest_position(self)
 
         # Opening JSON file
         f = open(path.path_dictionary)
 
         # returns JSON object
         # as a order dictionary
-        self.data = json.load(f,object_pairs_hook=OrderedDict)
+        self.data = json.load(f, object_pairs_hook=OrderedDict)
 
         self.old_sign = None
 
@@ -239,22 +281,23 @@ class Nao(Robot):
                 """
                 if key == ord('NEW_KEY'):
                     input = "new_sign"
-                    self.execute_sign(data[input])
+                    self.execute_sign(input)
                 """
                 if key == ord('Y') and self.old_sign is not None:
-                    second = self.getCasualSign()
-                    self.old_sign = None
-                    self.execute_sign(self.data[second])
-                    self.printHelp()
+                    sign_same_location = self.getCasualSign()
+                    self.old_sign = sign_same_location
+                    self.execute_sign(sign_same_location)
+                    self.print_interaction(sign_same_location)
 
                 if key == ord('H'):
                     self.printHelp()
                     sign = None
 
                 if sign is not None:
-                    self.execute_sign(self.data[sign])
+                    self.old_sign = None
+                    self.execute_sign(sign)
                     self.old_sign = sign
-                    print("Press \"y\" for another sign with the same location")
+                    self.print_interaction(sign)
 
             except KeyError:
                 Error().no_verb()

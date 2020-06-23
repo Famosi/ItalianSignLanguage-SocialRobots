@@ -1,8 +1,8 @@
 {
   "pensare": [
     {
-      "location": "head_side",
       "hand_configuration": "beak",
+      "location": "head_side",
       "hand_orientation": "+45",
       "movement": ["arm_circular_fast"]
     },
@@ -65,15 +65,15 @@
   ],
   "fidarsi": [
     {
-      "location": "chest_front",
       "hand_configuration": "close_all",
       "hand_orientation": "+45",
+      "location": "chest_front",
       "movement": []
     },
     {
-      "location": "chest_front",
       "hand_configuration": "close_all",
       "hand_orientation": "+45",
+      "location": "chest_front",
       "movement": []
     }
   ],
@@ -105,16 +105,7 @@
       "location": "chest_front",
       "hand_configuration": "open_index",
       "hand_orientation": "-45",
-      "movement": ["arm_linear", "wrist_circular"]
-    },
-    null
-  ],
-  "piacere": [
-    {
-      "location": "chest_side",
-      "hand_configuration": "open_all",
-      "hand_orientation": "-45",
-      "movement": ["arm_circular"]
+      "movement": ["arm_linear", "wrist_circular_fast"]
     },
     null
   ]

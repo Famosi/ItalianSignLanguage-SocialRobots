@@ -1,6 +1,6 @@
 from performer import Performer
 import utils as path
-from controller import Robot, Keyboard, Motion
+from utils import rest_position
 
 
 class Sign:
@@ -13,18 +13,12 @@ class Sign:
         self.movement = movement
         self.order = order
 
-    def rest_position(self):
-        rest_position = Motion(path.path_motions_movement + 'rest_position.motion')
-        rest_position.play()
-        while not rest_position.isOver():
-            self.robot.step(self.robot.timeStep)
-
     # order solo di dx se ci sono entrambi (chiedere come fare)
     def perform_sign(self):
         for param in self.order:
             settings = self.get_settings(param)
             Performer(settings[0], settings[1], self.robot, settings[2], settings[3], self.l_r)
-        self.rest_position()
+        rest_position(self.robot)
 
     def get_settings(self, param):
         if param == "hand_configuration":
@@ -37,4 +31,6 @@ class Sign:
             return ["Movement", path.path_motions_movement, "dynamic", self.movement]
         # Handle erroR!!!!
         return ["Errore","ERRORE","Errore"]
+
+
 
