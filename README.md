@@ -73,9 +73,14 @@ That's all, everything is installed and you can run the NAO-ISL robot!
 You can run the project following these steps:
 * **Open** [Webots](https://cyberbotics.com).
 * From the menu bar **click** on `File -> Open World...`.
-* **Select and open** the [LIS-Nao.wbt](worlds/LIS-Nao-apartment.wbt) world file. You can find it in `~/SocialRobot-ISL/worlds/LIS-Nao.wbt`
+* **Select and open** the [LIS-Nao-simple.wbt](worlds/LIS-Nao-simple.wbt) or [LIS-Nao-apartment.wbt](worlds/LIS-Nao-apartment.wbt) world file. You can find it in `~/SocialRobot-ISL/worlds/`
 * **Click** the ["Play" button](https://cyberbotics.com/wwi/R2019a/help.php) of Webots.
 * **Follow the instructions** shown in the console.
+
+
+There are two worlds in [./worlds](./worlds):
+* [LIS-Nao-apartment.wbt](worlds/LIS-Nao-apartment.wbt): here NAO is placed in a small apartment. Using this world require more computational resources. However, it is useful to show the dimension of the robot.
+* [LIS-Nao-simple.wbt](worlds/LIS-Nao-simple.wbt): here NAO is placed in a simple world. Consider using this world to play with the robot.
 
 **NB: The robot waits for pressed key. Make sure the 3D window of [Webots](https://cyberbotics.com) is selected and the simulation is running.**
 ## The Dictionary
