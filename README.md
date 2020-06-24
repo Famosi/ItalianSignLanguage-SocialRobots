@@ -94,7 +94,8 @@ It is a `.json` file with following format:
       "location": location_value,
       "hand_configuration": hand_configuration_value,
       "hand_orientation": hand_orientation_value,
-      "movement": [movement_value_1, movement_value_2, ..., movement_value_n]
+      "movement": [movement_value_1, movement_value_2, ..., movement_value_n],
+      "speed" speed_value
     },
     # LEFT-SIDE
     {
@@ -102,6 +103,7 @@ It is a `.json` file with following format:
       "hand_configuration": hand_configuration_value,
       "hand_orientation": hand_orientation_value,
       "movement": [movement_value_1, movement_value_2, ..., movement_value_n]
+      "speed" speed_value
     }
   ],
   .....
@@ -118,6 +120,7 @@ Here is an explanation of each parameter:
 * `hand_orientation`: **int** - where the wrist is facing. This value is expressed in degrees **from -180 (facing the listener) to +180 (facing the robot)**. (**int**)
 * `movement`: **\[string\]** - what type of movement must be executed. It's possible to add more than one `movement_value`. 
 if that's the case, they are executed with their definition order.
+* `speed`: **\[int\]** the speed of the movement in **seconds**.
 
 
 
@@ -135,6 +138,7 @@ For example, if you have this order:
 "hand_configuration": hand_configuration_value,
 "hand_orientation": hand_orientation_value,
 "movement": [movement_value_1, movement_value_2, ..., movement_value_n]
+"movement_speed": speed_value
 }...
 ```
 the robot execute the sign in this order: 
