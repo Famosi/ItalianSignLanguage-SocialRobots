@@ -95,7 +95,7 @@ It is a `.json` file with following format:
       "hand_configuration": hand_configuration_value,
       "hand_orientation": hand_orientation_value,
       "movement": [movement_value_1, movement_value_2, ..., movement_value_n],
-      "speed" speed_value
+      "movement_speed" movement_speed_value
     },
     # LEFT-SIDE
     {
@@ -103,7 +103,7 @@ It is a `.json` file with following format:
       "hand_configuration": hand_configuration_value,
       "hand_orientation": hand_orientation_value,
       "movement": [movement_value_1, movement_value_2, ..., movement_value_n]
-      "speed" speed_value
+      "movement_speed" movement_speed_value
     }
   ],
   .....
@@ -120,7 +120,7 @@ Here is an explanation of each parameter:
 * `hand_orientation`: **int** - where the wrist is facing. This value is expressed in degrees **from -180 (facing the listener) to +180 (facing the robot)**. (**int**)
 * `movement`: **\[string\]** - what type of movement must be executed. It's possible to add more than one `movement_value`. 
 if that's the case, they are executed with their definition order.
-* `speed`: **\[int\]** - the speed of the movement in **seconds**.
+* `movement_speed`: **\[int\]** - the speed of the movement in **seconds**.
 
 
 
@@ -138,14 +138,16 @@ For example, if you have this order:
 "hand_configuration": hand_configuration_value,
 "hand_orientation": hand_orientation_value,
 "movement": [movement_value_1, movement_value_2, ..., movement_value_n]
-"speed": speed_value
+"movement_speed": movement_speed_value
 }...
 ```
 the robot execute the sign in this order: 
 * place the arms in the correct `location`.
 * moves hand actuators to the `hand_configuration`.
 * rotate the wrist by `hand_orientation` degrees.
-* perform the `movement`
+* perform the `movement
+
+* For the `movement_speed` parameter the order doesn't affect the order of execution
 
 
 ### Available Signs
