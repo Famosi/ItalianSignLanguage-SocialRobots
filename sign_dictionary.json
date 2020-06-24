@@ -1,7 +1,7 @@
 {
   "pensare": [
     {
-      "hand_configuration": "",
+      "hand_configuration": "beak",
       "location": "head_side",
       "hand_orientation": "+45",
       "movement": ["arm_circular"],
