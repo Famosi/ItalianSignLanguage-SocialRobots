@@ -1,108 +1,61 @@
 from os.path import exists
 from controller import Motion
-from error import Error
+import utils
 
 
 class Performer:
-    def __init__(self, param, path_module, robot, s_d, module, l_r):
-        self.param = param
-        self.path = path_module
+    def __init__(self, robot, module_name, path_module, module_value):
         self.robot = robot
-        self.s_d = s_d
-        self.module = module
-        self.l_r = l_r
+
+        # [[module_name_dx], [module_name_sx]]
+        self.module_name = module_name
+        self.module_name_dx = module_name[0]
+        self.module_name_sx = module_name[1]
+
+        # [[path_dx], [[path_sx]]
+        self.path_module = path_module
+        self.path_module_dx = path_module[0]
+        self.path_module_sx = path_module[1]
+
+        # [[module_value_dx], [module_value_sx]]
+        self.module_value = module_value
+        self.module_value_dx = module_value[0]
+        self.module_value_sx = module_value[1]
+
+        # [[Motions_dx, ...], [Motions_sx, ...]]
         self.motions = self.get_motions()
+
         self.perform()
 
     def get_motions(self):
-        if self.s_d == "static":
-            return self.get_static_motions()
-        else:
-            if len(self.module[0]) > 0:
-                return self.get_dynamic_motions()
-            return None
+        # RETURN: [[motion_dx, ...], [motion_sx, ..]]
+        motions = [[], []]
+        for i in range(0, 2):
+            # if this side exists:
+            if self.module_name[i][0] is not None:
+                for idx, module_value in enumerate(self.module_value[i]):
+                    motion_path = self.path_module[i] + module_value + utils.r_l[i]
+                    if exists(motion_path):
+                        motions[i].append(Motion(motion_path))
+            else:
+                motions[i].append(None)
+        return motions
 
     def perform(self):
-        if self.motions is not None:
-            if self.s_d == "static":
-                self.perform_static()
-            else:
-                self.perform_dynamic()
-
-    def get_static_motions(self):
-        if self.l_r == "L_R":
-            if exists(self.path + self.module[0] + '_R' + '.motion') and exists(self.path + self.module[0] + '_L' + '.motion'):
-                return [
-                    Motion(self.path + self.module[0] + '_R' + '.motion'),
-                    Motion(self.path + self.module[1] + '_L' + '.motion')
-                ]
-            Error().no_file(self.param)
-            return None
-        else:
-            if exists(self.path + self.module[0] + '_' + self.l_r + '.motion'):
-                return [Motion(self.path + self.module[0] + '_' + self.l_r + '.motion')]
-            Error().no_file(self.param)
-            return None
-
-    def get_dynamic_motions(self):
-        if self.l_r == "L_R":
-            if exists(self.path + self.module[0][0] + '_R' + '.motion') and exists(
-                    self.path + self.module[1][0] + '_L' + '.motion'):
-                motions_dx = []
-                motions_sx = []
-                for motion in self.module[0]:
-                    motions_dx.append(
-                        Motion(self.path + motion + '_R' + '.motion')
-                    )
-                for motion in self.module[1]:
-                    motions_sx.append(
-                        Motion(self.path + motion + '_L' + '.motion')
-                    )
-                return [motions_dx, motions_sx]
-            Error().no_file(self.param)
-            return None
-        else:
-            if exists(self.path + self.module[0] + '_' + self.l_r + '.motion'):
-                motions = []
-                for motion in self.module:
-                    motions.append(
-                        Motion(self.path + motion + '_' + self.l_r + '.motion')
-                    )
-                return [motions]
-            Error().no_file(self.param)
-            return None
-
-    def perform_static(self):
-        if self.l_r == "L_R":
-            self.motions[0].play()
-            while not self.motions[0].isOver():
-                self.motions[1].play()
-                while not self.motions[1].isOver():
-                    self.motions[1].play()
-                    self.robot.step(self.robot.timeStep)
-                self.robot.step(self.robot.timeStep)
-        else:
-            self.motions[0].play()
-            while not self.motions[0].isOver():
-                self.robot.step(self.robot.timeStep)
-
-    def perform_dynamic(self):
-        if self.l_r == "L_R":
-            for _ in range(3):
-                for motion_dx in self.motions[0]:
+        for _ in range(3):
+            for motion_dx in self.motions[0]:
+                if motion_dx is not None:
                     motion_dx.play()
                     while not motion_dx.isOver():
                         for motion_sx in self.motions[1]:
+                            if motion_sx is not None:
+                                motion_sx.play()
+                                while not motion_sx.isOver():
+                                    self.robot.step(self.robot.timeStep)
+                        self.robot.step(self.robot.timeStep)
+                else:
+                    for motion_sx in self.motions[1]:
+                        if motion_sx is not None:
                             motion_sx.play()
                             while not motion_sx.isOver():
                                 self.robot.step(self.robot.timeStep)
-                        self.robot.step(self.robot.timeStep)
-        else:
-            for _ in range(3):
-                for motion in self.motions[0]:
-                    self.play(motion)
-
-    def play(self, motion):
-        motion.play()
-        while not motion.isOver():
-            self.robot.step(self.robot.timeStep)

@@ -109,48 +109,48 @@ class Nao(Robot):
         self.keyboard.enable(5 * self.timeStep)
 
     def getCasualSign(self):
-        sign = self.data[self.old_sign]
-        # togliere da data sign
-        toAdd = self.data.pop(self.old_sign)
-        final = dict()
-        l_r = False
-        # creo location per dx&sx
-        if sign[0] is not None and sign[1] is not None:
-            l_r = True
-            location = [sign[0]["location"], sign[1]["location"]]
-        # creo location per dx
-        elif sign[0] is not None:
-            location = [sign[0]["location"]]
-        # creo location per sx
-        else:
-            location = [sign[1]["location"]]
+        same_location_dict = dict()
+        old_sign = self.data.pop(self.old_sign)
 
-        for el in self.data.keys():
-            # per dx & sx
-            if self.data[el][0] is not None and self.data[el][1] is not None and l_r:
-                if self.data[el][0]["location"] == location[0] and self.data[el][1]["location"] == location[1]:
-                    final[el] = self.data[el]
-            # per dx
-            elif self.data[el][0] is not None:
-                if self.data[el][0]["location"] == location[0]:
-                    final[el] = self.data[el]
-            # per sx
-            elif self.data[el][1] is not None:
-                if self.data[el][1]["location"] == location[1]:
-                    final[el] = self.data[el]
+        old_locations = [[], []]
+        for i in range(0, 2):
+            if old_sign[i] is not None:
+                old_locations[i].append(old_sign[i]['location'])
+            else:
+                old_locations[i].append(None)
 
-        # scelgo un numero casuale fra 0 e lunghezza final.keys()
-        # prendo elemento corrsipondente nella lista
-        # nel caso eseguo l'elemeto nella lista
-        candidate = final.keys()
+        casual_sign = [[], []]
+        for sign in self.data.keys():
+            for i in range(0, 2):
+                if self.data[sign][i] is not None:
+                    casual_sign[i].append(self.data[sign][i]['location'])
+                else:
+                    casual_sign[i].append(None)
+
+            if casual_sign[0] is not None and casual_sign[1] is not None:
+                if casual_sign[0] == casual_sign[1]:
+                    if [casual_sign[0], [None]] == old_locations or [[None], casual_sign[1]] == old_locations:
+                        same_location_dict[sign] = self.data[sign]
+
+            if old_locations[0] is not None and old_locations[1] is not None:
+                if old_locations[0] == old_locations[1]:
+                    if [old_locations[0], [None]] == casual_sign or [[None], old_locations[1]] == casual_sign:
+                        same_location_dict[sign] = self.data[sign]
+
+            if casual_sign == old_locations:
+                same_location_dict[sign] = self.data[sign]
+            casual_sign = [[], []]
+
+        candidate = same_location_dict.keys()
+
         if len(candidate) == 0:
-            self.data[self.old_sign] = toAdd
-            return
+            self.data[self.old_sign] = old_sign
+            return None
 
         num = randint(0, len(candidate)-1)
         sign_same_location = candidate[num]
 
-        self.data[self.old_sign] = toAdd
+        self.data[self.old_sign] = old_sign
 
         return sign_same_location
 
@@ -173,52 +173,28 @@ class Nao(Robot):
         # if DX & SX
         data = self.data[sign]
         if self.is_good_defined(sign):
-            if data[0] is not None and data[1] is not None:
-                dx = data[0]
-                sx = data[1]
-                if dx.keys() == sx.keys():
-                    print("Performing \"" + sign + "\"...\n")
-                    Sign(
-                        self,
-                        'L_R',
-                        [dx['location'], sx['location']],
-                        [dx['hand_configuration'], sx['hand_configuration']],
-                        [dx['hand_orientation'], sx['hand_orientation']],
-                        [dx['movement'], sx['movement']],
-                        [dx['speed'], sx['speed']],
-                        dx.keys()
-                    ).perform_sign()
-                else:
-                    bad_def = True
-                    Error().bad_definition()
-            # if DX
-            elif data[0] is not None:
-                dx = data[0]
-                print("Performing \"" + sign + "\"...\n")
-                Sign(
-                    self,
-                    'R',
-                    [dx['location']],
-                    [dx['hand_configuration']],
-                    [dx['hand_orientation']],
-                    dx['movement'],
-                    [dx['speed']],
-                    dx.keys()
-                ).perform_sign()
-            # if SX
-            elif data[1] is not None:
-                sx = data[1]
-                print("Performing \"" + sign + "\"...\n")
-                Sign(
-                    self,
-                    'L',
-                    [sx['location']],
-                    [sx['hand_configuration']],
-                    [sx['hand_orientation']],
-                    sx['movement'],
-                    [sx['speed']],
-                    sx.keys()
-                ).perform_sign()
+            sign_dx = [None]*6
+            sign_dx[3] = [None]
+            sign_sx = [None]*6
+            sign_sx[3] = [None]
+            if data[0] is not None:
+                for i in range(0, 5):
+                    sign_dx[i] = data[0][self.params[i]]
+                    sign_dx[5] = data[0].keys()
+            if data[1] is not None:
+                for i in range(0, 5):
+                    sign_sx[i] = data[1][self.params[i]]
+                    sign_sx[5] = data[1].keys()
+            print("Performing \"" + sign + "\"...\n")
+            Sign(
+                self,
+                [[sign_dx[0]], [sign_sx[0]]],
+                [[sign_dx[1]], [sign_sx[1]]],
+                [[sign_dx[2]], [sign_sx[2]]],
+                [sign_dx[3], sign_sx[3]],
+                [[sign_dx[4]], [sign_sx[4]]],
+                [sign_dx[5], sign_sx[5]]
+            ).perform_sign()
 
         if not self.bad_def and self.old_sign is None:
             self.printHelp()
@@ -227,6 +203,7 @@ class Nao(Robot):
         Robot.__init__(self)
         # initialize stuff
         self.number_of_params = 5
+        self.params = ['location', 'hand_configuration', 'hand_orientation', 'movement', 'speed']
         self.findAndEnableDevices()
 
     def print_interaction(self, sign):
@@ -270,50 +247,57 @@ class Nao(Robot):
 
         # Main loop
         while True:
-            key = self.keyboard.getKey()
-            sign = None
-
-            if key == ord('A'):
-                sign = "amare"
-            if key == ord('D'):
-                sign = "dimenticare"
-            if key == ord('P'):
-                sign = "pensare"
-            if key == ord('I'):
-                sign = "invidia"
-            if key == ord('C'):
-                sign = "conoscere"
-            if key == ord('F'):
-                sign = "fidarsi"
-            if key == ord('R'):
-                sign = "ricordare"
-            if key == ord('W'):
-                sign = "ragionare"
-            if key == ord('Q'):
-                sign = "arrabbiarsi"
-            if key == ord('G'):
-                sign = "gelosia"
-            """
-            if key == ord('NEW_KEY'):
-                input = "new_sign"
-                self.execute_sign(input)
-            """
-            if key == ord('Y') and self.old_sign is not None:
-                self.bad_def = False
-                sign_same_location = self.getCasualSign()
-                self.old_sign = sign_same_location
-                self.execute_sign(sign_same_location)
-                self.print_interaction(sign_same_location)
-
-            if key == ord('H'):
-                self.printHelp()
+            try:
+                key = self.keyboard.getKey()
                 sign = None
 
-            if sign is not None:
-                self.old_sign = None
-                self.execute_sign(sign)
-                self.old_sign = sign
-                self.print_interaction(sign)
+                if key == ord('A'):
+                    sign = "amare"
+                if key == ord('D'):
+                    sign = "dimenticare"
+                if key == ord('P'):
+                    sign = "pensare"
+                if key == ord('I'):
+                    sign = "invidia"
+                if key == ord('C'):
+                    sign = "conoscere"
+                if key == ord('F'):
+                    sign = "fidarsi"
+                if key == ord('R'):
+                    sign = "ricordare"
+                if key == ord('W'):
+                    sign = "ragionare"
+                if key == ord('Q'):
+                    sign = "arrabbiarsi"
+                if key == ord('G'):
+                    sign = "gelosia"
+                """
+                if key == ord('NEW_KEY'):
+                    input = "new_sign"
+                    self.execute_sign(input)
+                """
+                if key == ord('Y') and self.old_sign is not None:
+                    self.bad_def = False
+                    sign_same_location = self.getCasualSign()
+                    if sign_same_location is not None:
+                        self.old_sign = sign_same_location
+                        self.execute_sign(sign_same_location)
+                        self.print_interaction(sign_same_location)
+                    else:
+                        print("There aren't other signs with same location!\nTry to add new signs!")
+
+                if key == ord('H'):
+                    self.printHelp()
+                    sign = None
+
+                if sign is not None:
+                    self.old_sign = None
+                    self.execute_sign(sign)
+                    self.old_sign = sign
+                    self.print_interaction(sign)
+
+            except KeyError as e:
+                Error().no_verb()
 
             if robot.step(self.timeStep) == -1:
                 # Closing file

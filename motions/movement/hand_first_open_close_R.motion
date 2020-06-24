@@ -1,4 +1,4 @@
 #WEBOTS_MOTION,V1.0,RPhalanx1,RPhalanx4,RPhalanx7
 00:00:000,Pose1,0,0,0
-00:00:300,Pose1,0.5,0.5,0.5
-00:00:600,Pose2,1,1,1
+00:00:333,Pose1,0.5,0.5,0.5
+00:00:666,Pose2,1,1,1
