@@ -203,7 +203,7 @@ class Nao(Robot):
         Robot.__init__(self)
         # initialize stuff
         self.number_of_params = 5
-        self.params = ['location', 'hand_configuration', 'hand_orientation', 'movement', 'speed']
+        self.params = ['location', 'hand_configuration', 'hand_orientation', 'movement', 'movement_speed']
         self.findAndEnableDevices()
 
     def print_interaction(self, sign):

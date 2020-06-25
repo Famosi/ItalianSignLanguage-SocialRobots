@@ -1,59 +1,59 @@
 {
   "pensare": [
+    null,
     {
-      "hand_configuration": "beak",
       "location": "head_side",
+      "hand_configuration": "beak",
       "hand_orientation": "+45",
       "movement": ["arm_circular"],
-      "speed": 1
-    },
-    null
+      "movement_speed": 1
+    }
   ],
   "conoscere": [
+    null,
     {
       "location": "head_side",
       "hand_configuration": "beak",
       "hand_orientation": "-90",
       "movement": ["hand_first_open_close"],
-      "speed": null
-    },
-    null
+      "movement_speed": 1.5
+    }
   ],
   "invidia": [
+    null,
     {
-      "location": "chest_front",
       "hand_configuration": "scratch",
+      "location": "chest_front",
       "hand_orientation": "+45",
       "movement": ["arm_circular"],
-      "speed": 5
-    },
-    null
+      "movement_speed": 3
+    }
   ],
   "amare": [
     {
-      "location": "chest_front",
       "hand_configuration": "open_all",
+      "location": "chest_front",
       "hand_orientation": "+45",
       "movement": ["arm_from_robot_to_user"],
-      "speed": 0.8
+      "movement_speed": 0.8
     },
     {
-      "location": "chest_front",
       "hand_configuration": "open_all",
+      "location": "chest_front",
       "hand_orientation": "+45",
       "movement": ["arm_from_robot_to_user"],
-      "speed": 0.8
+      "movement_speed": 0.8
     }
   ],
   "ricordare": [
+    null,
     {
       "location": "head_side",
-      "hand_configuration": "open_all",
+      "hand_configuration": "close_inch",
       "hand_orientation": "+90",
       "movement": ["arm_from_robot_to_user"],
-      "speed": 0.5
-    },
-    null
+      "movement_speed": 2
+    }
   ],
   "ragionare": [
     {
@@ -61,14 +61,14 @@
       "hand_configuration": "open_all",
       "hand_orientation": "-45",
       "movement": ["elbow_linear"],
-      "speed": 1
+      "movement_speed": 1
     },
     {
       "location": "head_side",
       "hand_configuration": "open_all",
       "hand_orientation": "-45",
       "movement": ["elbow_linear"],
-      "speed": 1
+      "movement_speed": 1
     }
   ],
   "fidarsi": [
@@ -76,26 +76,26 @@
       "hand_configuration": "close_all",
       "hand_orientation": "+45",
       "location": "chest_front",
-      "movement": [],
-      "speed": 2
+      "movement": [null],
+      "movement_speed": 2
     },
     {
       "hand_configuration": "close_all",
       "hand_orientation": "+45",
       "location": "chest_front",
-      "movement": ["elbow_linear"],
-      "speed": 2
+      "movement": [null],
+      "movement_speed": 2
     }
   ],
   "dimenticare": [
+    null,
     {
       "location": "head_side",
       "hand_configuration": "close_all",
       "hand_orientation": "-45",
       "movement": ["arm_linear", "hand_all_open_close"],
-      "speed": 1
-    },
-    null
+      "movement_speed": 1
+    }
   ],
   "arrabbiarsi": [
     {
@@ -103,25 +103,25 @@
       "hand_configuration": "scratch",
       "hand_orientation": "-45",
       "movement": ["elbow_linear"],
-      "speed": 2
+      "movement_speed": 2
     },
     {
       "location": "chest_side",
       "hand_configuration": "scratch",
       "hand_orientation": "-45",
       "movement": ["elbow_linear"],
-      "speed": 2
+      "movement_speed": 2
     }
   ],
   "gelosia": [
+    null,
     {
       "location": "chest_front",
       "hand_configuration": "open_index",
       "hand_orientation": "-45",
       "movement": ["arm_linear", "wrist_circular"],
-      "speed": 1
-    },
-    null
+      "movement_speed": 1
+    }
   ]
 }
 

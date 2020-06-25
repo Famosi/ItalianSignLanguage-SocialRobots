@@ -34,9 +34,12 @@ class Performer:
             # if this side exists:
             if self.module_name[i][0] is not None:
                 for idx, module_value in enumerate(self.module_value[i]):
-                    motion_path = self.path_module[i] + module_value + utils.r_l[i]
-                    if exists(motion_path):
-                        motions[i].append(Motion(motion_path))
+                    if module_value is not None:
+                        motion_path = self.path_module[i] + module_value + utils.r_l[i]
+                        if exists(motion_path):
+                            motions[i].append(Motion(motion_path))
+                    else:
+                        motions[i].append(None)
             else:
                 motions[i].append(None)
         return motions

@@ -1,0 +1,4 @@
+#WEBOTS_MOTION,V1.0,LPhalanx1,LPhalanx2,LPhalanx3,LPhalanx4,LPhalanx5,LPhalanx6,LPhalanx7,LPhalanx8
+00:00:000,Pose1,1,1,1,1,1,1,1,1
+00:00:666,Pose1,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5
+00:01:332,Pose1,0,0,0,0,0,0,0,0

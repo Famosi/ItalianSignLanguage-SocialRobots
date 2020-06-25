@@ -40,7 +40,7 @@ class Sign:
         for i in range(0, 2):
             if self.movement_speed[i][0] is not None:
                 for motion in self.movement[i]:
-                    if len(motion) > 0:
+                    if motion is not None:
                         motion_path = utils.path_movement + motion + utils.r_l[i]
                         new_speeds = get_new_speeds(motion_path, self.movement_speed[i][0])
 
@@ -99,32 +99,36 @@ class Sign:
 
 
 def get_new_speeds(path, speed):
-    num_lines = sum(1 for _ in open(path))
-    speed = int(speed * 1000)
-    if speed < 100:
-        Error().bad_time_definition()
-        return None
+    if os.path.exists(path):
+        num_lines = sum(1 for _ in open(path))
+        speed = int(speed * 1000)
+        if speed < 100:
+            Error().bad_time_definition()
+            return None
+        else:
+            interval_lenght = (speed / (num_lines - 1))
+            i = 0
+            new_speeds = ["00:00:000"]
+            for _ in range(0, num_lines-1):
+                i += interval_lenght
+                if i < 10:
+                    new_speeds.append("00:00:00" + str(i))
+                elif i < 100:
+                    new_speeds.append("00:00:0" + str(i))
+                elif i < 1000:
+                    new_speeds.append("00:00:" + str(i))
+                elif i < 10000:
+                    new_speeds.append("00:0" + str(i)[0] + ":" + str(i)[1:])
+                elif i < 100000:
+                    new_speeds.append("00:" + str(i)[:2] + ":" + str(i)[2:])
+                elif i < 1000000:
+                    new_speeds.append("0" + str(i)[0] + ":" + str(i)[1:3] + ":" + str(i)[3:])
+                elif i < 10000000:
+                    new_speeds.append(str(i)[:2] + ":" + str(i)[2:4] + ":" + str(i)[4:])
+                else:
+                    Error().bad_time_definition()
+                    return None
+            return new_speeds
     else:
-        interval_lenght = (speed / (num_lines - 1))
-        i = 0
-        new_speeds = ["00:00:000"]
-        for _ in range(0, num_lines-1):
-            i += interval_lenght
-            if i < 10:
-                new_speeds.append("00:00:00" + str(i))
-            elif i < 100:
-                new_speeds.append("00:00:0" + str(i))
-            elif i < 1000:
-                new_speeds.append("00:00:" + str(i))
-            elif i < 10000:
-                new_speeds.append("00:0" + str(i)[0] + ":" + str(i)[1:])
-            elif i < 100000:
-                new_speeds.append("00:" + str(i)[:2] + ":" + str(i)[2:])
-            elif i < 1000000:
-                new_speeds.append("0" + str(i)[0] + ":" + str(i)[1:3] + ":" + str(i)[3:])
-            elif i < 10000000:
-                new_speeds.append(str(i)[:2] + ":" + str(i)[2:4] + ":" + str(i)[4:])
-            else:
-                Error().bad_time_definition()
-                return None
-        return new_speeds
+        Error().bad_definition()
+        return None
