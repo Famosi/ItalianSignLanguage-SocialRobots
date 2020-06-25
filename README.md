@@ -3,7 +3,7 @@ Educational project for [Social Robot](https://www.unibo.it/it/didattica/insegna
 
 **NAO-ISL DEMO**
 
-<img alt="demo" width="700" height="350" src="./media/gifs/think-nao-gt.gif">
+<img alt="demo" width="700" height="350" src="./media/gifs/to-think.gif">
 
 ## Table Of Content
 * [Introduction](#introduction)
@@ -260,7 +260,9 @@ Their names can be <b>figurative</b> or <b>explicative</b>.
 
 The only <b>figurative</b> name is used for the `rest_position`. This is the neutral position of the robot:
 
-<img src="media/motions/rest_position.png" alt="drawing" width="194" height="194"/>
+Rest Position            |  Rest Position Natural
+:-------------------------:|:-------------------------:
+![RestPosition](media/motions/rest_position.png)  |  ![RestPositionNatural](media/motions/rest_position_natural.png)
 
 Pattern for <b>explicative</b> names in case the involved body part is **hand**:
 ```

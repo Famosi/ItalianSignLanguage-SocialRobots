@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.11559350106997164 0.9866176907121799 0.11499423848242146 1.5246147017628136
-  position 2.211039790066137 0.9306772033921786 0.061591678102613547
+  orientation -0.10864282633045746 0.9884873025699739 0.10530711725646584 1.4915101686461545
+  position 1.205205104389382 0.6755305090406984 0.05564025683429506
 }
 TexturedBackground {
 }
@@ -13,13 +13,4 @@ Nao {
   controller "controller_lis"
 }
 CircleArena {
-  floorAppearance ChequeredParquetry {
-    IBLStrength -3
-  }
-  floorTileSize 1.5 1.6
-  wallHeight 0
-  wallAppearance BrushedAluminium {
-    colorOverride 0.990417 0.500267 0.0328679
-  }
-  subdivision -4
 }
