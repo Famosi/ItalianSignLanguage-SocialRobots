@@ -258,7 +258,9 @@ This means: "for the **Right/Left** arm, the sign takes place in **front/side** 
 The <b>movement</b> motions refer to how the sign is performed.
 Their names can be <b>figurative</b> or <b>explicative</b>.
 
-The only <b>figurative</b> name is used for the `rest_position`. This is the neutral position of the robot:
+The only <b>figurative</b> two names are used for the `rest_position` and the `rest_position_natural`. 
+* `rest_position`: neutral position of the robot (all actuators value equals to 0).
+* `rest_position_natural`: neutral position of humans.
 
 Rest Position            |  Rest Position Natural
 :-------------------------:|:-------------------------:
