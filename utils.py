@@ -13,12 +13,7 @@ path_movement = local_path + 'SocialRobot-ISL/motions/movement/'
 
 path_dictionary = local_path +'SocialRobot-ISL/sign_dictionary.json'
 
-parameters = {
-    'location': ['Location', path_location, ]
-}
-
 r_l = ["_R.motion", "_L.motion"]
-
 
 def rest_position(robot):
     rest_position = Motion(path_movement + 'rest_position_natural.motion')
