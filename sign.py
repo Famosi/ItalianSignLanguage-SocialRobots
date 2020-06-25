@@ -8,26 +8,32 @@ class Sign:
     def __init__(self, robot, location, hand_configuration, hand_orientation, movement, movement_speed, param_order):
         self.robot = robot
 
+        # [[location dx], [location sx]] 
         self.location = location
         self.location_dx = location[0]
         self.location_sx = location[1]
 
+        # [[hand_configuration_dx], [hand_configuration_sx]] 
         self.hand_configuration = hand_configuration
         self.hand_configuration_dx = hand_configuration[0]
         self.hand_configuration_sx = hand_configuration[1]
 
+        # [[hand_orientation dx], [hand_orientation sx]]
         self.hand_orientation = hand_orientation
         self.hand_orientation_dx = hand_orientation[0]
         self.hand_orientation_dx = hand_orientation[1]
 
+        # [movement_dx, movement_sx ]
         self.movement = movement
         self.movement_dx = movement[0]
         self.movement_sx = movement[1]
 
+        # [[movement_speed_dx], [movement_speed_sx]] 
         self.movement_speed = movement_speed
         self.movement_speed_dx = movement_speed[0]
         self.movement_speed_sx = movement_speed[1]
 
+        # [[param_order_dx], [param_order_sx]]
         self.param_order = param_order
         self.param_order_dx = param_order[0]
         self.param_order_sx = param_order[1]
