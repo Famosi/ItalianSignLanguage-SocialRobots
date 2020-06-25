@@ -38,10 +38,10 @@
       "speed": 0.8
     },
     {
-      "movement": ["arm_from_robot_to_user"],
       "location": "chest_front",
       "hand_configuration": "open_all",
       "hand_orientation": "+45",
+      "movement": ["arm_from_robot_to_user"],
       "speed": 0.8
     }
   ],
