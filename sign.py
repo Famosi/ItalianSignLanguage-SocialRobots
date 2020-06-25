@@ -106,11 +106,11 @@ def get_new_speeds(path, speed):
             Error().bad_time_definition()
             return None
         else:
-            interval_lenght = (speed / (num_lines - 1))
+            interval_length = (speed / (num_lines - 1))
             i = 0
             new_speeds = ["00:00:000"]
             for _ in range(0, num_lines-1):
-                i += interval_lenght
+                i += interval_length
                 if i < 10:
                     new_speeds.append("00:00:00" + str(i))
                 elif i < 100:
