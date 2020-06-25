@@ -175,13 +175,15 @@ The signs for the following verbs are already defined in the [sing dictionary](.
       "location": location_value,
       "hand_configuration": hand_configuration_value,
       "hand_orientation": hand_orientation_value,
-      "movement": [movement_value_1, movement_value_2, ..., movement_value_n]
+      "movement": [movement_value_1, movement_value_2, ..., movement_value_n],
+      "movement_speed": movement_speed_value
     },
     {
       "location": location_value,
       "hand_configuration": hand_configuration_value,
       "hand_orientation": hand_orientation_value,
-      "movement": [movement_value_1, movement_value_2, ..., movement_value_n]
+      "movement": [movement_value_1, movement_value_2, ..., movement_value_n],
+      "movement_speed": movement_speed_value
     }
   ]
 ```
