@@ -1,45 +1,24 @@
-# Copyright 1996-2020 Cyberbotics Ltd.
-#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
 #     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
 
-"""Example of Python controller for Nao robot.
-   This demonstrates how to access sensors and actuators"""
 import sys
 sys.path.append('../../')
 
 import json
 from collections import OrderedDict
-from random import seed
 from random import randint
 import utils as path
 from controller import Robot, Keyboard, Motion
 from sign import Sign
 from error import Error
-from time import sleep
-from utils import rest_position
+from utils import get_rest_position, signs_are_similar
+
 
 class Nao(Robot):
     PHALANX_MAX = 8
-
-    def setAllLedsColor(self, rgb):
-        # these leds take RGB values
-        for i in range(0, len(self.leds)):
-            self.leds[i].set(rgb)
-
-        # ear leds are single color (blue)
-        # and take values between 0 - 255
-        self.leds[5].set(rgb & 0xFF)
-        self.leds[6].set(rgb & 0xFF)
 
     def printHelp(self):
         print('----------NAO_ROBOT-ISL----------')
@@ -127,15 +106,8 @@ class Nao(Robot):
                 else:
                     casual_sign[i].append(None)
 
-            if casual_sign[0] is not None and casual_sign[1] is not None:
-                if casual_sign[0] == casual_sign[1]:
-                    if [casual_sign[0], [None]] == old_locations or [[None], casual_sign[1]] == old_locations:
-                        same_location_dict[sign] = self.data[sign]
-
-            if old_locations[0] is not None and old_locations[1] is not None:
-                if old_locations[0] == old_locations[1]:
-                    if [old_locations[0], [None]] == casual_sign or [[None], old_locations[1]] == casual_sign:
-                        same_location_dict[sign] = self.data[sign]
+            if signs_are_similar(casual_sign, old_locations) or signs_are_similar(old_locations, casual_sign):
+                same_location_dict[sign] = self.data[sign]
 
             if casual_sign == old_locations:
                 same_location_dict[sign] = self.data[sign]
@@ -234,7 +206,7 @@ class Nao(Robot):
 
     def run(self):
         self.printHelp()
-        rest_position(self)
+        get_rest_position(self)
 
         # Opening JSON file
         f = open(path.path_dictionary)
