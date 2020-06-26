@@ -17,7 +17,7 @@ r_l = ["_R.motion", "_L.motion"]
 
 
 def get_rest_position(robot):
-    rest_position = Motion(path_movement + 'rest_position_natural.motion')
+    rest_position = Motion(path_movement + 'rest_position.motion')
     rest_position.play()
     while not rest_position.isOver():
         robot.step(robot.timeStep)
