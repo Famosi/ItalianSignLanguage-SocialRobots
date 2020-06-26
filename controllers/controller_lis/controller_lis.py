@@ -245,8 +245,7 @@ class Nao(Robot):
                     sign = "gelosia"
                 """
                 if key == ord('NEW_KEY'):
-                    input = "new_sign"
-                    self.execute_sign(input)
+                    sign = "new_sign"
                 """
                 if key == ord('Y') and self.old_sign is not None:
                     self.bad_def = False
