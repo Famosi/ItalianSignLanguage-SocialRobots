@@ -197,8 +197,7 @@ The signs for the following verbs are already defined in the [sing dictionary](.
 ```
 """
 if key == ord('NEW_KEY'):
-  input = "new_sign"
-  self.execute_sign(input)
+  sign = "new_sign"
 """
 ```
 * **replace**:
