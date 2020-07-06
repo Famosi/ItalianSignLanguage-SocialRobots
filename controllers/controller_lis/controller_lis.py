@@ -95,9 +95,9 @@ class Nao(Robot):
         for i in range(0, 2):
             if old_sign[i] is not None:
                 old_locations[i].append(old_sign[i]['location'])
-                if "head" in old_locations[i]:
+                if "head" in old_locations[i][0]:
                     old_locations[i] = "head"
-                if "chest" in old_locations[i]:
+                if "chest" in old_locations[i][0]:
                     old_locations[i] = "chest"
             else:
                 old_locations[i].append(None)
@@ -107,9 +107,9 @@ class Nao(Robot):
             for i in range(0, 2):
                 if self.data[sign][i] is not None:
                     casual_sign[i].append(self.data[sign][i]['location'])
-                    if "head" in casual_sign[i]:
+                    if "head" in casual_sign[i][0]:
                         casual_sign[i] = "head"
-                    if "chest" in casual_sign[i]:
+                    elif "chest" in casual_sign[i][0]:
                         casual_sign[i] = "chest"
                 else:
                     casual_sign[i].append(None)
@@ -119,6 +119,7 @@ class Nao(Robot):
 
             if casual_sign == old_locations:
                 same_location_dict[sign] = self.data[sign]
+
             casual_sign = [[], []]
 
         candidate = same_location_dict.keys()
